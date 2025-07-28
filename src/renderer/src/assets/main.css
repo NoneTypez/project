@@ -7,6 +7,21 @@
   align-items: center;
   app-region: drag;
 }
-body {
+
+
+#root {
+  width: 100vw;
+  height: 770px;
   background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 3px 3px 3px
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 4px;
 }
