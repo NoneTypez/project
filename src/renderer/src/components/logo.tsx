@@ -1,11 +1,14 @@
-import cn from 'classnames'
-import styles from './Logo.module.css'
 import { JSX } from 'react'
 
-function Logo(src: string): JSX.Element {
+type LogoProps = {
+  src: string
+  alt?: string
+}
+
+function Logo({ src, alt = 'Logo' }: LogoProps): JSX.Element {
   return (
     <span>
-      <img className={cn(styles.logo)} src={src} alt="Logo" />
+      <img className="logo" src={src} alt={alt} />
     </span>
   )
 }

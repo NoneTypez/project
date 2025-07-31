@@ -1,18 +1,21 @@
 import { JSX } from 'react'
-import SvgIcon from '@mui/material/SvgIcon'
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon'
 
-export default function Icon(path: string): JSX.Element {
+type IconProps = {
+  path: string
+} & SvgIconProps
+
+export default function Icon({ path, ...props }: IconProps): JSX.Element {
   return (
-    <SvgIcon>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
+    <SvgIcon viewBox="0 0 24 24" {...props}>
+      <path
+        d={path}
         stroke="currentColor"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d={path} />
-      </svg>
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
     </SvgIcon>
   )
 }

@@ -1,7 +1,7 @@
 .titlebar {
   height: 30px;
   background: black;
-  color: white;
+  color: rgb(85, 83, 83);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,4 +24,10 @@
   flex-direction: column;
   width: 100%;
   margin-left: 4px;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(5px 0px 3px #000000);
 }
