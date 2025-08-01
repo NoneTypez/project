@@ -15,37 +15,50 @@ import BackupTableIcon from '@mui/icons-material/BackupTable'
 import SummarizeIcon from '@mui/icons-material/Summarize'
 
 export default function SideBar(): JSX.Element {
+  const mainIconStyle = {
+    fontSize: 40,
+    color: '#515151ff',
+    cursor: 'default',
+    '&:hover': {
+      color: '#bcbcbeff'
+    }
+  }
+  const iconButtonStyle = {
+    padding: '6px 0',
+    cursor: 'default'
+  }
+
   return (
     <div className={cn(styles.main)}>
       <div className={cn(styles.topblock)}>
         <Logo src={logo} />
-        <IconButton className="btn">
-          <SpaceDashboardIcon />
+        <IconButton sx={iconButtonStyle}>
+          <SpaceDashboardIcon sx={mainIconStyle} />
         </IconButton>
       </div>
       <div className={cn(styles.centerblock)}>
-        <IconButton className="btn">
-          <HubIcon />
+        <IconButton sx={iconButtonStyle}>
+          <HubIcon sx={mainIconStyle} />
         </IconButton>
-        <IconButton className="btn">
-          <CurrencyExchangeIcon />
+        <IconButton sx={iconButtonStyle}>
+          <CurrencyExchangeIcon sx={mainIconStyle} />
         </IconButton>
-        <IconButton className="btn">
-          <ChecklistIcon />
+        <IconButton sx={iconButtonStyle}>
+          <ChecklistIcon sx={mainIconStyle} />
         </IconButton>
-        <IconButton className="btn">
-          <SwapHorizIcon />
+        <IconButton sx={iconButtonStyle}>
+          <SwapHorizIcon sx={mainIconStyle} />
         </IconButton>
-        <IconButton className="btn">
-          <BlurCircularIcon />
+        <IconButton sx={iconButtonStyle}>
+          <BlurCircularIcon sx={mainIconStyle} />
         </IconButton>
-        <IconButton className="btn">
-          <BackupTableIcon />
+        <IconButton sx={iconButtonStyle}>
+          <BackupTableIcon sx={mainIconStyle} />
         </IconButton>
       </div>
       <div className={cn(styles.bottomblock)}>
-        <IconButton className="btn">
-          <SummarizeIcon />
+        <IconButton sx={iconButtonStyle}>
+          <SummarizeIcon sx={mainIconStyle} />
         </IconButton>
       </div>
     </div>
