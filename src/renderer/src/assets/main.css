@@ -1,3 +1,7 @@
+* {
+  cursor: default !important;
+}
+
 .titlebar {
   height: 30px;
   background: black;
