@@ -14,6 +14,7 @@ import BackupTableIcon from '@mui/icons-material/BackupTable'
 import SummarizeIcon from '@mui/icons-material/Summarize'
 
 import SideBarButton from './sideBarButton'
+import { SubMenuConfig } from './sideBarConfig'
 export default function SideBar(): JSX.Element {
   return (
     <div className={cn(styles.main)}>
@@ -22,10 +23,10 @@ export default function SideBar(): JSX.Element {
         <SideBarButton icon={SpaceDashboardIcon} />
       </div>
       <div className={cn(styles.centerblock)}>
-        <SideBarButton icon={HubIcon} />
-        <SideBarButton icon={CurrencyExchangeIcon} />
-        <SideBarButton icon={ChecklistIcon} />
-        <SideBarButton icon={SwapHorizIcon} />
+        <SideBarButton icon={HubIcon} subMenu={SubMenuConfig.projects} />
+        <SideBarButton icon={CurrencyExchangeIcon} subMenu={SubMenuConfig.exchange} />
+        <SideBarButton icon={ChecklistIcon} subMenu={SubMenuConfig.script} />
+        <SideBarButton icon={SwapHorizIcon} subMenu={SubMenuConfig.swap} />
         <SideBarButton icon={BlurCircularIcon} />
         <SideBarButton icon={BackupTableIcon} />
       </div>

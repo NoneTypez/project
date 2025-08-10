@@ -16,7 +16,7 @@
 #root {
   width: 100vw;
   height: 770px;
-  background-color: black;
+  /* background-color: black; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;

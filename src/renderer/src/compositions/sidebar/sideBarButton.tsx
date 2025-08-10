@@ -1,9 +1,10 @@
 import { ElementType, JSX, useState } from 'react'
-import { IconButton, List, ListItemButton, ListItemText, Paper } from '@mui/material'
+import { Box, IconButton, List, ListItemButton, ListItemText } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 export type SubMenuItem = {
-  label: string
-  onClick: () => void
+  button: string
+  path: string
 }
 
 export type SideBarButtonProps = {
@@ -12,49 +13,65 @@ export type SideBarButtonProps = {
 }
 
 export default function SideBarButton({ icon: Icon, subMenu }: SideBarButtonProps): JSX.Element {
-  const [open, setOpen] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   const mainIconStyle = {
     fontSize: '40px',
-    color: '#515151ff',
-    transition: 'color 0.2s ease',
-    '&:hover': {
-      color: '#a2a9acff'
-    }
+    color: visible ? '#a2a9acff' : '#515151ff',
+    transition: 'color 0.2s ease'
   }
 
   return (
-    <div
-      style={{ position: 'relative' }}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+    <Box
+      sx={{ position: 'relative', display: 'inline-block' }}
+      onMouseEnter={() => setVisible(true)}
+      onMouseLeave={() => setVisible(false)}
     >
-      <IconButton>
+      <IconButton sx={{ padding: 0.6 }}>
         <Icon sx={mainIconStyle} />
       </IconButton>
 
-      {subMenu && open && (
-        <Paper
-          elevation={3}
+      {subMenu && (
+        <Box
           sx={{
-            cursor: 'default',
             position: 'absolute',
             left: '100%',
             top: 0,
-            bgcolor: 'background.paper',
-            minWidth: 180,
-            zIndex: 1000
+            minWidth: 150,
+            zIndex: 9999,
+            backgroundColor: '#fff',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateX(0)' : 'translateX(-10px)',
+            pointerEvents: visible ? 'auto' : 'none',
+            transition: 'opacity 0.3s ease, transform 0.3s ease',
+            background: '#2a272a',
+            color: '#a2a9acff',
+            boxShadow: '6px 4px 14px 0px rgba(0,0,0,0.75)'
           }}
         >
-          <List>
+          <List sx={{ padding: 0, boxShadow: '27px 14px 32px 0px rgba(0,0,0,0.75)' }}>
             {subMenu.map((item, i) => (
-              <ListItemButton key={i} onClick={item.onClick} sx={{ padding: '8px 16px' }}>
-                <ListItemText primary={item.label} />
+              <ListItemButton
+                key={i}
+                component={Link}
+                to={item.path}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  borderRadius: 3,
+                  ':hover': { color: '#dad8d8ff', background: '#2f2f2fff' }
+                }}
+              >
+                <ListItemText primary={item.button} />
               </ListItemButton>
             ))}
           </List>
-        </Paper>
+        </Box>
       )}
-    </div>
+    </Box>
   )
 }

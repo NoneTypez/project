@@ -6,6 +6,8 @@
   width: 4%;
   height: 100%;
   background-color: black;
+  overflow: visible !important;
+
 }
 
 .topblock {
