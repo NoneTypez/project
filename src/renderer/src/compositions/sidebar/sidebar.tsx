@@ -13,25 +13,68 @@ import BlurCircularIcon from '@mui/icons-material/BlurCircular'
 import BackupTableIcon from '@mui/icons-material/BackupTable'
 import SummarizeIcon from '@mui/icons-material/Summarize'
 
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import SideBarButton from './sideBarButton'
 import { SubMenuConfig } from './sideBarConfig'
+
 export default function SideBar(): JSX.Element {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const isDashboardActive = location.pathname === '/'
+
+  const isSubMenuActive = (subMenu?: { path: string }[]): boolean =>
+    subMenu ? subMenu.some((item) => location.pathname.startsWith(item.path)) : false
+
   return (
     <div className={cn(styles.main)}>
       <div className={cn(styles.topblock)}>
         <Logo src={logo} />
-        <SideBarButton icon={SpaceDashboardIcon} />
+        <SideBarButton
+          icon={SpaceDashboardIcon}
+          onClick={() => navigate('/')}
+          active={isDashboardActive}
+        />
       </div>
       <div className={cn(styles.centerblock)}>
-        <SideBarButton icon={HubIcon} subMenu={SubMenuConfig.projects} />
-        <SideBarButton icon={CurrencyExchangeIcon} subMenu={SubMenuConfig.exchange} />
-        <SideBarButton icon={ChecklistIcon} subMenu={SubMenuConfig.script} />
-        <SideBarButton icon={SwapHorizIcon} subMenu={SubMenuConfig.swap} />
-        <SideBarButton icon={BlurCircularIcon} />
-        <SideBarButton icon={BackupTableIcon} />
+        <SideBarButton
+          icon={HubIcon}
+          subMenu={SubMenuConfig.projects}
+          active={isSubMenuActive(SubMenuConfig.projects)}
+        />
+        <SideBarButton
+          icon={CurrencyExchangeIcon}
+          subMenu={SubMenuConfig.exchange}
+          active={isSubMenuActive(SubMenuConfig.exchange)}
+        />
+        <SideBarButton
+          icon={ChecklistIcon}
+          subMenu={SubMenuConfig.script}
+          active={isSubMenuActive(SubMenuConfig.script)}
+        />
+        <SideBarButton
+          icon={SwapHorizIcon}
+          subMenu={SubMenuConfig.swap}
+          active={isSubMenuActive(SubMenuConfig.swap)}
+        />
+        <SideBarButton
+          icon={BlurCircularIcon}
+          active={location.pathname.startsWith('/other')}
+          onClick={() => navigate('/other')}
+        />
+        <SideBarButton
+          icon={BackupTableIcon}
+          active={location.pathname.startsWith('/table')}
+          onClick={() => navigate('/table')}
+        />
       </div>
       <div className={cn(styles.bottomblock)}>
-        <SideBarButton icon={SummarizeIcon} />
+        <SideBarButton
+          icon={SummarizeIcon}
+          active={location.pathname.startsWith('/log')}
+          onClick={() => navigate('/log')}
+        />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { ElementType, JSX, useState } from 'react'
+import { JSX, useState } from 'react'
 import { Box, IconButton, List, ListItemButton, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
 
@@ -7,18 +7,26 @@ export type SubMenuItem = {
   path: string
 }
 
-export type SideBarButtonProps = {
-  icon: ElementType
+interface SideBarButtonProps {
+  icon: React.ElementType
+  onClick?: () => void
   subMenu?: SubMenuItem[]
+  active?: boolean
 }
 
-export default function SideBarButton({ icon: Icon, subMenu }: SideBarButtonProps): JSX.Element {
+export default function SideBarButton({
+  icon: Icon,
+  subMenu,
+  onClick,
+  active
+}: SideBarButtonProps): JSX.Element {
   const [visible, setVisible] = useState(false)
 
   const mainIconStyle = {
     fontSize: '40px',
-    color: visible ? '#a2a9acff' : '#515151ff',
-    transition: 'color 0.2s ease'
+    color: active ? '#2088b8ff' : visible ? '#a2a9acff' : '#515151ff',
+    transition: 'color 0.2s ease',
+    filter: active ? 'drop-shadow(5px 0px 3px #000000)' : null
   }
 
   return (
@@ -27,7 +35,7 @@ export default function SideBarButton({ icon: Icon, subMenu }: SideBarButtonProp
       onMouseEnter={() => setVisible(true)}
       onMouseLeave={() => setVisible(false)}
     >
-      <IconButton sx={{ padding: 0.6 }}>
+      <IconButton sx={{ padding: 0.6 }} onClick={onClick}>
         <Icon sx={mainIconStyle} />
       </IconButton>
 
@@ -39,7 +47,6 @@ export default function SideBarButton({ icon: Icon, subMenu }: SideBarButtonProp
             top: 0,
             minWidth: 150,
             zIndex: 9999,
-            backgroundColor: '#fff',
             borderRadius: '8px',
             overflow: 'hidden',
             opacity: visible ? 1 : 0,
@@ -51,7 +58,7 @@ export default function SideBarButton({ icon: Icon, subMenu }: SideBarButtonProp
             boxShadow: '6px 4px 14px 0px rgba(0,0,0,0.75)'
           }}
         >
-          <List sx={{ padding: 0, boxShadow: '27px 14px 32px 0px rgba(0,0,0,0.75)' }}>
+          <List sx={{ padding: 0 }}>
             {subMenu.map((item, i) => (
               <ListItemButton
                 key={i}
@@ -63,6 +70,7 @@ export default function SideBarButton({ icon: Icon, subMenu }: SideBarButtonProp
                   justifyContent: 'center',
                   textAlign: 'center',
                   borderRadius: 3,
+                  padding: 0.5,
                   ':hover': { color: '#dad8d8ff', background: '#2f2f2fff' }
                 }}
               >

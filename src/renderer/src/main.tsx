@@ -7,13 +7,16 @@ import { HashRouter } from 'react-router-dom'
 import SideBar from './compositions/sidebar/sidebar'
 import Window from './compositions/window/window'
 import Footer from './compositions/footer/footer'
+import CustomRoutes from './routes/routes'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
       <SideBar />
       <div className="container">
-        <Window />
+        <Window>
+          <CustomRoutes />
+        </Window>
         <Footer />
       </div>
     </HashRouter>
