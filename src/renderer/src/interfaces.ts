@@ -11,4 +11,17 @@ interface ISideBarIcons {
   arrow_down: string
   arrow_up: string
 }
-export { ISideBarIcons }
+
+interface IHeadersValues {
+  id: number
+  profileName: string
+  email: string
+  twitter: string
+  discord: string
+  telegram: string
+  telephone: string
+  github: string
+  balance?: string | undefined
+}
+
+export type { ISideBarIcons, IHeadersValues }
