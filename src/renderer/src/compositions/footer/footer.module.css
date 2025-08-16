@@ -1,4 +1,12 @@
 .main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  color: rgb(114, 114, 114);
   background-color: #2a272a;;
   width: 100%;
   height: 3%;
@@ -7,5 +15,9 @@
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   border-top-right-radius: 3px;
+}
 
+.leftZone {
+  width: 250px;
+  border-right: 1px solid rgb(93, 93, 93);
 }

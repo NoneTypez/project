@@ -37,35 +37,65 @@ function TableHeaders({ isAllChecked, onToggleAll, onSort }: ITableHeaders): JSX
   ]
 
   return (
-    <TableHead>
+    <TableHead sx={{ fontSize: '10px' }}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
             checked={isAllChecked}
             onChange={onToggleAll}
-            inputProps={{ 'aria-label': 'select all' }}
+            slotProps={{
+              input: {
+                'aria-label': 'select all'
+              }
+            }}
+            sx={{
+              color: '#404040ff', // цвет галочки по умолчанию
+              '&.Mui-checked': {
+                color: '#2088b8ff' // цвет галочки, когда включен
+              },
+              transition: 'all 0.3s ease',
+              '& .MuiSvgIcon-root': {
+                transition: 'all 0.3s ease'
+              }
+            }}
           />
         </TableCell>
 
         {sortableHeaders.map((col) => (
-          <TableCell key={col.key}>
+          <TableCell key={col.key} padding="none">
             <TableSortLabel
               active={sortConfig?.key === col.key}
               direction={sortConfig?.key === col.key && !sortConfig.asc ? 'desc' : 'asc'}
               onClick={() => handleSort(col.key)}
+              sx={{
+                display: 'flex',
+                paddingLeft: '15px'
+              }}
             >
               {col.label}
             </TableSortLabel>
           </TableCell>
         ))}
 
-        <TableCell>EMAIL</TableCell>
-        <TableCell>TWITTER</TableCell>
-        <TableCell>DISCORD</TableCell>
-        <TableCell>TELEGRAM</TableCell>
-        <TableCell>TELEPHONE</TableCell>
-        <TableCell>GITHUB</TableCell>
-        <TableCell />
+        <TableCell padding="none" align="center">
+          EMAIL
+        </TableCell>
+        <TableCell padding="none" align="center">
+          TWITTER
+        </TableCell>
+        <TableCell padding="none" align="center">
+          DISCORD
+        </TableCell>
+        <TableCell padding="none" align="center">
+          TELEGRAM
+        </TableCell>
+        <TableCell padding="none" align="center">
+          TELEPHONE
+        </TableCell>
+        <TableCell padding="none" align="center">
+          GITHUB
+        </TableCell>
+        <TableCell padding="none" align="center" />
       </TableRow>
     </TableHead>
   )
