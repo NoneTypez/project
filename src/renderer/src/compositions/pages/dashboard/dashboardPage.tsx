@@ -4,7 +4,7 @@ import cn from 'classnames'
 import styles from './dashboard.module.css'
 
 import DashboardTabs from './tabs/dashboardTabs'
-import MainTable from './table/table'
+import MainTable from './table/profiles/table'
 
 interface IDashboardProps {
   data?: []

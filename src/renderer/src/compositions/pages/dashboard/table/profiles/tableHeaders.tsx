@@ -37,7 +37,7 @@ function TableHeaders({ isAllChecked, onToggleAll, onSort }: ITableHeaders): JSX
   ]
 
   return (
-    <TableHead sx={{ fontSize: '10px' }}>
+    <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -62,7 +62,7 @@ function TableHeaders({ isAllChecked, onToggleAll, onSort }: ITableHeaders): JSX
         </TableCell>
 
         {sortableHeaders.map((col) => (
-          <TableCell key={col.key} padding="none">
+          <TableCell key={col.key} padding="none" align="center">
             <TableSortLabel
               active={sortConfig?.key === col.key}
               direction={sortConfig?.key === col.key && !sortConfig.asc ? 'desc' : 'asc'}

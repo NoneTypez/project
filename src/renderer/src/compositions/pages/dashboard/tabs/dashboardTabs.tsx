@@ -2,7 +2,36 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'
 import { JSX } from 'react'
+
+import WalletTable from '../table/walletsTable/walletTable'
+// import BtcTable from './BtcTable'
+// import SolTable from './SolTable'
+// import AtomTable from './AtomTable'
+
+// Вспомогательный компонент для рендеринга содержимого вкладок
+interface TabPanelProps {
+  children?: React.ReactNode
+  index: number
+  value: number
+}
+
+function TabPanel(props: TabPanelProps): JSX.Element {
+  const { children, value, index, ...other } = props
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 2 }}>{children}</Box>}
+    </div>
+  )
+}
 
 export default function DashboardTabs(): JSX.Element {
   const [value, setValue] = React.useState(0)
@@ -12,18 +41,19 @@ export default function DashboardTabs(): JSX.Element {
   }
 
   const tabStyle = {
-    color: '#6d6d6dff', // цвет по умолчанию
+    color: '#6d6d6dff',
     paddingTop: 0,
     paddingBottom: 0,
     fontSize: '17px',
-    textTransform: 'none', // чтобы не было caps
+    textTransform: 'none',
     '&.Mui-selected': {
-      color: '#b3b5b6ff' // цвет при выборе
+      color: '#b3b5b6ff'
     },
     '&.Mui-focusVisible': {
-      backgroundColor: 'transparent' // убираем голубую анимацию
+      backgroundColor: 'transparent'
     }
   }
+
   return (
     <Box>
       <Tabs
@@ -33,8 +63,8 @@ export default function DashboardTabs(): JSX.Element {
         slotProps={{
           indicator: {
             sx: {
-              height: '2px', // толщина полоски
-              bottom: '10px', // поднимаем выше
+              height: '2px',
+              bottom: '10px',
               borderRadius: '4px',
               backgroundColor: '#b3b5b6ff'
             }
@@ -48,6 +78,20 @@ export default function DashboardTabs(): JSX.Element {
         <Tab label="ATOM" sx={tabStyle} disableRipple />
         <Tab label="TON" disabled sx={tabStyle} disableRipple />
       </Tabs>
+
+      {/* Содержимое вкладок */}
+      <TabPanel value={value} index={1}>
+        <WalletTable />
+      </TabPanel>
+      {/* <TabPanel value={value} index={2}>
+        <BtcTable />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <SolTable />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <AtomTable />
+      </TabPanel> */}
     </Box>
   )
 }
