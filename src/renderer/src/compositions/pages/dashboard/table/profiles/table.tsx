@@ -11,6 +11,8 @@ import {
 } from '@mui/material'
 import TableHeaders from './tableHeaders'
 import { testData } from '@renderer/models'
+import cn from 'classnames'
+import styles from '../table.module.css'
 
 interface IHeadersValues {
   id: number
@@ -60,6 +62,7 @@ export default function Table(): JSX.Element {
   return (
     <TableContainer
       component={Paper}
+      className={cn(styles.main)}
       sx={{
         backgroundColor: '#00000025',
         '& .MuiTableCell-root': {

@@ -18,7 +18,7 @@ function WalletTableBody({ data, checkedItems, onToggleItem }: WalletTableBodyPr
     <TableBody>
       {data.map(({ id, address, balance }) => (
         <TableRow key={id} hover>
-          <TableCell padding="checkbox">
+          <TableCell padding="checkbox" sx={{ paddingTop: 0, paddingBottom: 0 }}>
             <Checkbox
               checked={checkedItems[id] || false}
               onChange={() => onToggleItem(id)}
@@ -30,11 +30,13 @@ function WalletTableBody({ data, checkedItems, onToggleItem }: WalletTableBodyPr
             />
           </TableCell>
 
-          <TableCell>{id}</TableCell>
-          <TableCell align="center">{address}</TableCell>
-          <TableCell>{balance}$</TableCell>
-          <TableCell align="center">
-            <Button variant="outlined" size="small" color="primary">
+          <TableCell sx={{ paddingTop: 0, paddingBottom: 0 }}>{id}</TableCell>
+          <TableCell align="center" sx={{ paddingTop: 0, paddingBottom: 0 }}>
+            {address}
+          </TableCell>
+          <TableCell sx={{ paddingTop: 0, paddingBottom: 0 }}>{balance}$</TableCell>
+          <TableCell align="center" sx={{ paddingTop: 0, paddingBottom: 0 }}>
+            <Button variant="outlined" color="primary" sx={{ paddingTop: 0, paddingBottom: 0 }}>
               Details
             </Button>
           </TableCell>

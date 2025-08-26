@@ -36,7 +36,7 @@ function WalletTableHeaders({
           />
         </TableCell>
 
-        <TableCell>
+        <TableCell padding="normal" sx={{ paddingTop: 0, paddingBottom: 0 }}>
           <TableSortLabel
             active={sortConfig?.key === 'id'}
             direction={sortConfig?.key === 'id' && !sortConfig.asc ? 'desc' : 'asc'}
@@ -46,9 +46,11 @@ function WalletTableHeaders({
           </TableSortLabel>
         </TableCell>
 
-        <TableCell align="center">ADDRESS</TableCell>
+        <TableCell align="center" padding="none">
+          ADDRESS
+        </TableCell>
 
-        <TableCell>
+        <TableCell padding="none">
           <TableSortLabel
             active={sortConfig?.key === 'balance'}
             direction={sortConfig?.key === 'balance' && !sortConfig.asc ? 'desc' : 'asc'}
@@ -58,7 +60,7 @@ function WalletTableHeaders({
           </TableSortLabel>
         </TableCell>
 
-        <TableCell align="center"></TableCell>
+        <TableCell align="center" padding="none"></TableCell>
       </TableRow>
     </TableHead>
   )

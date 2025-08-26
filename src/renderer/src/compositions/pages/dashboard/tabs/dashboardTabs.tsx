@@ -2,10 +2,11 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
 import { JSX } from 'react'
 
 import WalletTable from '../table/walletsTable/walletTable'
+import Table from '../table/profiles/table'
+import EmptyPage from '../../emptyPage/emptyPage'
 // import BtcTable from './BtcTable'
 // import SolTable from './SolTable'
 // import AtomTable from './AtomTable'
@@ -28,7 +29,17 @@ function TabPanel(props: TabPanelProps): JSX.Element {
       aria-labelledby={`tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 2 }}>{children}</Box>}
+      {value === index && (
+        <Box
+          sx={{
+            p: 0,
+            height: '86vh', // регулируй отступ от Tabs
+            overflowY: 'auto'
+          }}
+        >
+          {children}
+        </Box>
+      )}
     </div>
   )
 }
@@ -80,18 +91,21 @@ export default function DashboardTabs(): JSX.Element {
       </Tabs>
 
       {/* Содержимое вкладок */}
+      <TabPanel value={value} index={0}>
+        <Table />
+      </TabPanel>
       <TabPanel value={value} index={1}>
         <WalletTable />
       </TabPanel>
-      {/* <TabPanel value={value} index={2}>
-        <BtcTable />
+      <TabPanel value={value} index={2}>
+        <EmptyPage />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <SolTable />
+        <EmptyPage />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <AtomTable />
-      </TabPanel> */}
+        <EmptyPage />
+      </TabPanel>
     </Box>
   )
 }
