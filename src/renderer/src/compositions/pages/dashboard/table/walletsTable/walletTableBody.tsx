@@ -36,8 +36,8 @@ function WalletTableBody({ data, checkedItems, onToggleItem }: WalletTableBodyPr
           </TableCell>
           <TableCell sx={{ paddingTop: 0, paddingBottom: 0 }}>{balance}$</TableCell>
           <TableCell align="center" sx={{ paddingTop: 0, paddingBottom: 0 }}>
-            <Button variant="outlined" color="primary" sx={{ paddingTop: 0, paddingBottom: 0 }}>
-              Details
+            <Button variant="text" color="inherit" sx={{ paddingTop: 0, paddingBottom: 0 }}>
+              ...
             </Button>
           </TableCell>
         </TableRow>

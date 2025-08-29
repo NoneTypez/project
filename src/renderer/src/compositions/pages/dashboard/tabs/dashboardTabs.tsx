@@ -33,7 +33,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
         <Box
           sx={{
             p: 0,
-            height: '86vh', // регулируй отступ от Tabs
+            height: '100%', // регулируй отступ от Tabs
             overflowY: 'auto'
           }}
         >
@@ -74,6 +74,9 @@ export default function DashboardTabs(): JSX.Element {
         slotProps={{
           indicator: {
             sx: {
+              display: 'flex',
+              justifyContent: 'center',
+              alignContent: 'center',
               height: '2px',
               bottom: '10px',
               borderRadius: '4px',

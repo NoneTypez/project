@@ -44,14 +44,16 @@ function WalletTable(): JSX.Element {
     <TableContainer
       component={Paper}
       sx={{
+        maxHeight: '685px',
+        overflow: 'auto',
         backgroundColor: '#00000025',
         '& .MuiTableCell-root': {
-          color: '#929292ff', // все ячейки таблицы
+          color: '#929292ff',
           borderBottom: '1px solid #444'
         },
-        '& .MuiTableRow-root:hover': {},
         '& .MuiTableHead-root .MuiTableCell-root': {
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          backgroundColor: '#1a1a1abf' // чтобы фон заголовка был фиксирован, а не "прозрачный"
         },
         '& .MuiTableSortLabel-root .MuiTableSortLabel-icon': {
           color: '#aaa !important'
@@ -67,7 +69,7 @@ function WalletTable(): JSX.Element {
         }
       }}
     >
-      <Table>
+      <Table stickyHeader>
         <WalletTableHeaders
           isAllChecked={isAllChecked}
           onToggleAll={handleToggleAll}
