@@ -7,6 +7,7 @@ import { JSX } from 'react'
 import WalletTable from '../table/walletsTable/walletTable'
 import Table from '../table/profiles/table'
 import EmptyPage from '../../emptyPage/emptyPage'
+import { Button } from '@mui/material'
 // import BtcTable from './BtcTable'
 // import SolTable from './SolTable'
 // import AtomTable from './AtomTable'
@@ -67,48 +68,56 @@ export default function DashboardTabs(): JSX.Element {
 
   return (
     <Box>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        centered
-        slotProps={{
-          indicator: {
-            sx: {
-              display: 'flex',
-              justifyContent: 'center',
-              alignContent: 'center',
-              height: '2px',
-              bottom: '10px',
-              borderRadius: '4px',
-              backgroundColor: '#b3b5b6ff'
+      <Box>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          slotProps={{
+            indicator: {
+              sx: {
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+                alignContent: 'center',
+                height: '2px',
+                bottom: '10px',
+                borderRadius: '4px',
+                backgroundColor: '#b3b5b6ff'
+              }
             }
-          }
-        }}
-      >
-        <Tab label="ПРОФИЛИ" sx={tabStyle} disableRipple />
-        <Tab label="EVM" sx={tabStyle} disableRipple />
-        <Tab label="BTC" sx={tabStyle} disableRipple />
-        <Tab label="SOL" sx={tabStyle} disableRipple />
-        <Tab label="ATOM" sx={tabStyle} disableRipple />
-        <Tab label="TON" disabled sx={tabStyle} disableRipple />
-      </Tabs>
+          }}
+        >
+          <Tab label="ПРОФИЛИ" sx={tabStyle} disableRipple />
+          <Tab label="EVM" sx={tabStyle} disableRipple />
+          <Tab label="BTC" sx={tabStyle} disableRipple />
+          <Tab label="SOL" sx={tabStyle} disableRipple />
+          <Tab label="ATOM" sx={tabStyle} disableRipple />
+          <Tab label="TON" disabled sx={tabStyle} disableRipple />
+          <Box sx={{ display: 'flex', height: '30px', alignSelf: 'center' }}>
+            <Button variant="outlined" sx={{ borderColor: '#2088b8ff', color: '#2088b8ff' }}>
+              ДОБАВИТЬ
+            </Button>
+          </Box>
+        </Tabs>
 
-      {/* Содержимое вкладок */}
-      <TabPanel value={value} index={0}>
-        <Table />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <WalletTable />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <EmptyPage />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <EmptyPage />
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <EmptyPage />
-      </TabPanel>
+        {/* Содержимое вкладок */}
+        <TabPanel value={value} index={0}>
+          <Table />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <WalletTable />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <EmptyPage />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <EmptyPage />
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          <EmptyPage />
+        </TabPanel>
+      </Box>
     </Box>
   )
 }
