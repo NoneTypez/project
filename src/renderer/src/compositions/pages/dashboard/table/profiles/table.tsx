@@ -65,9 +65,10 @@ export default function Table(): JSX.Element {
       component={Paper}
       className={cn(styles.main)}
       sx={{
-        maxHeight: '685px',
+        maxHeight: '683px',
         overflow: 'auto',
-        backgroundColor: '#00000025',
+        background:
+          'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
         '& .MuiTableCell-root': {
           color: '#929292ff',
           borderBottom: '1px solid #444'
@@ -90,7 +91,7 @@ export default function Table(): JSX.Element {
         }
       }}
     >
-      <MuiTable>
+      <MuiTable stickyHeader>
         <TableHeaders
           isAllChecked={isAllChecked}
           onToggleAll={handleToggleAll}

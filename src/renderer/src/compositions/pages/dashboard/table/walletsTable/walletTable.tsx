@@ -44,16 +44,19 @@ function WalletTable(): JSX.Element {
     <TableContainer
       component={Paper}
       sx={{
-        maxHeight: '685px',
+        maxHeight: '683px',
         overflow: 'auto',
-        backgroundColor: '#00000025',
+        background:
+          'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
+
         '& .MuiTableCell-root': {
           color: '#929292ff',
           borderBottom: '1px solid #444'
         },
         '& .MuiTableHead-root .MuiTableCell-root': {
           fontWeight: 'bold',
-          backgroundColor: '#1a1a1abf' // чтобы фон заголовка был фиксирован, а не "прозрачный"
+          background:
+            'linear-gradient(90deg,rgba(26, 26, 26, 0.69) 0%, rgba(26, 26, 26, 0.87) 50%, rgba(26, 26, 26, 0.68) 100%);' // чтобы фон заголовка был фиксирован, а не "прозрачный"
         },
         '& .MuiTableSortLabel-root .MuiTableSortLabel-icon': {
           color: '#aaa !important'
