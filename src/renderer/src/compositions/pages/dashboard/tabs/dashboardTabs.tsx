@@ -8,6 +8,8 @@ import WalletTable from '../table/walletsTable/walletTable'
 import Table from '../table/profiles/table'
 import EmptyPage from '../../emptyPage/emptyPage'
 import { Button } from '@mui/material'
+import ModalWindow from '@renderer/compositions/modal/modalWindow'
+import AddWalletstyle from '@renderer/compositions/modal/addWalletModal/addWalletStyle'
 // import BtcTable from './BtcTable'
 // import SolTable from './SolTable'
 // import AtomTable from './AtomTable'
@@ -66,6 +68,10 @@ export default function DashboardTabs(): JSX.Element {
     }
   }
 
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = (): void => setOpen(true)
+  const handleClose = (): void => setOpen(false)
+
   return (
     <Box>
       <Box>
@@ -95,9 +101,16 @@ export default function DashboardTabs(): JSX.Element {
           <Tab label="ATOM" sx={tabStyle} disableRipple />
           <Tab label="TON" disabled sx={tabStyle} disableRipple />
           <Box sx={{ display: 'flex', height: '30px', alignSelf: 'center' }}>
-            <Button variant="outlined" sx={{ borderColor: '#2088b8ff', color: '#2088b8ff' }}>
+            <Button
+              variant="outlined"
+              sx={{ borderColor: '#2088b8ff', color: '#2088b8ff' }}
+              onClick={handleOpen} // просто открываем
+            >
               ДОБАВИТЬ
             </Button>
+            <ModalWindow open={open} onClose={handleClose}>
+              <AddWalletstyle />
+            </ModalWindow>
           </Box>
         </Tabs>
 

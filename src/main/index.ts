@@ -1,6 +1,8 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import logger from './backend/logger'
+import { db } from './backend/db/dbEngine'
 
 function createWindow(): void {
   // Create the browser window.
@@ -17,6 +19,8 @@ function createWindow(): void {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+    logger.log('info', 'STARTED')
+    console.log(`CONNECTED TO DATABASE: ${db.dbPath}`)
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
