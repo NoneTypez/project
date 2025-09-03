@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
@@ -10,7 +11,8 @@ function createWindow(): void {
     width: 1200,
     height: 800,
     resizable: false,
-    titleBarStyle: 'hidden',
+    frame: false, // убираем стандартные кнопки везде
+    titleBarStyle: 'hiddenInset',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -72,5 +74,19 @@ app.on('window-all-closed', () => {
   }
 })
 
+ipcMain.on('window:minimize', (event) => {
+  const win = BrowserWindow.fromWebContents(event.sender)
+  win?.minimize()
+})
+
+ipcMain.on('window:maximize', (event) => {
+  const win = BrowserWindow.fromWebContents(event.sender)
+  win?.isMaximized() ? win.unmaximize() : win.maximize()
+})
+
+ipcMain.on('window:close', (event) => {
+  const win = BrowserWindow.fromWebContents(event.sender)
+  win?.close()
+})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

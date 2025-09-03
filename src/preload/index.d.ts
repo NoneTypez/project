@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ElectronAPI } from '@electron-toolkit/preload'
 import { IWalletPair } from './interfaces'
 import { IProfile } from '@renderer/interfaces'
@@ -7,6 +8,11 @@ declare global {
     electron: ElectronAPI // Тип для API, предоставляемого Electron
     api: {
       // Тип для твоего объекта `api`
+      electronAPI: {
+        minimize: () => void
+        maximize: () => void
+        close: () => void
+      }
       db: {
         select: (
           tableName: string,

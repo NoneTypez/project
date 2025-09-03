@@ -1,4 +1,5 @@
-// Table.tsx
+/* eslint-disable prettier/prettier */
+
 import { JSX, useState } from 'react'
 import {
   Table as MuiTable,
@@ -72,6 +73,9 @@ export default function Table(): JSX.Element {
         '& .MuiTableCell-root': {
           color: '#929292ff',
           borderBottom: '1px solid #444'
+        },
+        '& .MuiTable-root': {
+          tableLayout: 'fixed' // фиксированная ширина колонок
         },
         '& .MuiTableHead-root .MuiTableCell-root': {
           fontWeight: 'bold',
