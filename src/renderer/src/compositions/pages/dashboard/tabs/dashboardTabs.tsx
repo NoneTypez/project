@@ -37,7 +37,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
         <Box
           sx={{
             p: 0,
-            height: '100%', // регулируй отступ от Tabs
+            height: '100vh', // регулируй отступ от Tabs
             overflowY: 'auto'
           }}
         >

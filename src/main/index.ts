@@ -8,9 +8,11 @@ import { db } from './backend/db/dbEngine'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    minHeight: 800,
+    minWidth: 1200,
     width: 1200,
     height: 800,
-    resizable: false,
+    resizable: true,
     frame: false, // убираем стандартные кнопки везде
     titleBarStyle: 'hiddenInset',
     webPreferences: {

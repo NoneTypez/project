@@ -7,7 +7,7 @@
 }
 
 .titlebar {
-  height: 30px;
+  height: 35px;
   background: black;
   color: rgb(85, 83, 83);
   display: flex;
@@ -19,13 +19,13 @@
 
 #root {
   width: 100vw;
-  height: 770px;
+  height: 95.5vh;
   /* background-color: black; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0 3px 3px 3px;
-
+  overflow: hidden;
 }
 
 .container {
