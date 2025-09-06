@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-
 import { JSX, useState } from 'react'
 import {
   Table as MuiTable,

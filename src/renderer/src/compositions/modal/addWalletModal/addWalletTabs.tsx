@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from '@mui/material'
 import { JSX, useState } from 'react'
 import EmptyPage from '@renderer/compositions/pages/emptyPage/emptyPage'
+import AddProfileTab from './addProfileTab'
 // import AddProfileMode from './addProfileTab'
 
 interface TabPanelProps {
@@ -24,7 +25,8 @@ function TabPanel(props: TabPanelProps): JSX.Element {
         <Box
           sx={{
             p: 0,
-            height: '100%', // регулируй отступ от Tabs
+            // height: 100
+            width: 790,
             overflowY: 'auto'
           }}
         >
@@ -76,7 +78,7 @@ export function AddWalletsTabs(): JSX.Element {
               sx: {
                 display: 'flex',
                 justifyContent: 'space-between',
-                width: '100%',
+                width: '100vw',
                 alignContent: 'center',
                 height: '2px',
                 bottom: '10px',
@@ -92,8 +94,7 @@ export function AddWalletsTabs(): JSX.Element {
 
         {/* Содержимое вкладок */}
         <TabPanel value={value} index={0}>
-          {/* <AddProfileMode onDataChange={walletHandleDataChange} resetValues={resetInputs} /> */}
-          <EmptyPage />
+          <AddProfileTab />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <EmptyPage />
