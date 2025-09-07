@@ -64,7 +64,7 @@ export default function Table(): JSX.Element {
       component={Paper}
       className={cn(styles.main)}
       sx={{
-        maxHeight: 'calc(100vh - 120px)', // динамически ограничиваем
+        maxHeight: 'calc(100vh - 130px)', // динамически ограничиваем
         overflow: 'auto',
         background:
           'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
@@ -101,8 +101,8 @@ export default function Table(): JSX.Element {
         />
 
         <TableBody>
-          {data.map((row) => (
-            <TableRow key={row.id} hover>
+          {data.map((row, index) => (
+            <TableRow key={`${row.id}-${index}`} hover>
               <TableCell padding="checkbox" align="center">
                 <Checkbox
                   checked={selected.includes(row.id)}

@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import SideBarButton from './sideBarButton'
 import { SubMenuConfig } from './sideBarConfig'
+import { Box } from '@mui/material'
 
 export default function SideBar(): JSX.Element {
   const navigate = useNavigate()
@@ -28,16 +29,16 @@ export default function SideBar(): JSX.Element {
     subMenu ? subMenu.some((item) => location.pathname.startsWith(item.path)) : false
 
   return (
-    <div className={cn(styles.main)}>
-      <div className={cn(styles.topblock)}>
+    <Box className={cn(styles.main)}>
+      <Box className={cn(styles.topblock)}>
         <Logo src={logo} />
         <SideBarButton
           icon={SpaceDashboardIcon}
           onClick={() => navigate('/')}
           active={isDashboardActive}
         />
-      </div>
-      <div className={cn(styles.centerblock)}>
+      </Box>
+      <Box className={cn(styles.centerblock)}>
         <SideBarButton
           icon={HubIcon}
           subMenu={SubMenuConfig.projects}
@@ -68,14 +69,14 @@ export default function SideBar(): JSX.Element {
           active={location.pathname.startsWith('/table')}
           onClick={() => navigate('/table')}
         />
-      </div>
-      <div className={cn(styles.bottomblock)}>
+      </Box>
+      <Box className={cn(styles.bottomblock)}>
         <SideBarButton
           icon={SummarizeIcon}
           active={location.pathname.startsWith('/log')}
           onClick={() => navigate('/log')}
         />
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }

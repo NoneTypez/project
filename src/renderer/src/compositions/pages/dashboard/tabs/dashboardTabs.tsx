@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Tabs from '@mui/material/Tabs'
@@ -23,15 +22,15 @@ interface TabPanelProps {
 }
 
 function TabPanel(props: TabPanelProps): JSX.Element {
-  const { children, value, index, ...other } = props
+  const { children, value, index } = props
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`tabpanel-${index}`}
       aria-labelledby={`tab-${index}`}
-      {...other}
+      // {...other}
     >
       {value === index && (
         <Box
@@ -44,7 +43,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
           {children}
         </Box>
       )}
-    </div>
+    </Box>
   )
 }
 
@@ -71,14 +70,15 @@ export default function DashboardTabs(): JSX.Element {
 
   const [open, setOpen] = React.useState(false)
   const handleOpen = (): void => {
-    window.api.logger.log('DRINDOSKA')
+    window.api.logger.log('DrINDOS')
     setOpen(true)
   }
   const handleClose = (): void => setOpen(false)
 
   return (
     <Box>
-      <Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        {/* Tabs занимают всё доступное место */}
         <Tabs
           value={value}
           onChange={handleChange}
@@ -87,8 +87,7 @@ export default function DashboardTabs(): JSX.Element {
             indicator: {
               sx: {
                 display: 'flex',
-                justifyContent: 'space-between',
-                width: '100%',
+                // width: '100%',
                 alignContent: 'center',
                 height: '2px',
                 bottom: '10px',
@@ -97,6 +96,7 @@ export default function DashboardTabs(): JSX.Element {
               }
             }
           }}
+          sx={{ flexGrow: 1 }}
         >
           <Tab label="ПРОФИЛИ" sx={tabStyle} disableRipple />
           <Tab label="EVM" sx={tabStyle} disableRipple />
@@ -104,37 +104,38 @@ export default function DashboardTabs(): JSX.Element {
           <Tab label="SOL" sx={tabStyle} disableRipple />
           <Tab label="ATOM" sx={tabStyle} disableRipple />
           <Tab label="TON" disabled sx={tabStyle} disableRipple />
-          <Box sx={{ display: 'flex', height: '30px', alignSelf: 'center' }}>
-            <Button
-              variant="outlined"
-              sx={{ borderColor: '#2088b8ff', color: '#2088b8ff' }}
-              onClick={handleOpen} // просто открываем
-            >
-              ДОБАВИТЬ
-            </Button>
-            <ModalWindow open={open} onClose={handleClose}>
-              <AddWalletstyle />
-            </ModalWindow>
-          </Box>
         </Tabs>
 
-        {/* Содержимое вкладок */}
-        <TabPanel value={value} index={0}>
-          <Table />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <WalletTable />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <EmptyPage />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <EmptyPage />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <EmptyPage />
-        </TabPanel>
+        {/* Кнопка справа от табов */}
+        <Button
+          variant="outlined"
+          sx={{ borderColor: '#2088b8ff', color: '#2088b8ff', ml: 2, marginRight: 2 }}
+          onClick={handleOpen}
+        >
+          ДОБАВИТЬ
+        </Button>
+
+        <ModalWindow open={open} onClose={handleClose}>
+          <AddWalletstyle />
+        </ModalWindow>
       </Box>
+
+      {/* Содержимое вкладок */}
+      <TabPanel value={value} index={0}>
+        <Table />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <WalletTable />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <EmptyPage />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <EmptyPage />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <EmptyPage />
+      </TabPanel>
     </Box>
   )
 }

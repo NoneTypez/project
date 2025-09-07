@@ -44,7 +44,7 @@ function WalletTable(): JSX.Element {
     <TableContainer
       component={Paper}
       sx={{
-        maxHeight: 'calc(100vh - 120px)', // динамически ограничиваем
+        maxHeight: 'calc(100vh - 130px)', // динамически ограничиваем
         overflow: 'auto',
         background:
           'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',

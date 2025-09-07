@@ -12,7 +12,7 @@ interface IModalWindow {
   children: JSX.Element
 }
 
-function ModalWindow({ open, onClose, style, children }: IModalWindow): JSX.Element {
+function ModalWindow({ open, onClose, children }: IModalWindow): JSX.Element {
   return (
     <Modal
       open={open}
@@ -24,7 +24,7 @@ function ModalWindow({ open, onClose, style, children }: IModalWindow): JSX.Elem
       <Fade in={open} timeout={400}>
         <Box
           sx={{
-            ...style,
+            // ...style,
             position: 'absolute',
             top: '50%',
             left: '50%',

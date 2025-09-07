@@ -45,6 +45,9 @@ function createWindow(): void {
     mainWindow.show()
     logger.log('info', 'STARTED')
     console.log(`CONNECTED TO DATABASE: ${db.dbPath}`)
+
+    // 👉 запускаем отслеживание логов
+    watchLogFile(mainWindow)
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -58,6 +61,7 @@ function createWindow(): void {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+    watchLogFile(mainWindow)
   }
 }
 
@@ -79,6 +83,7 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
+  logger.setupIPC()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -115,5 +120,9 @@ ipcMain.handle('get-log-file', () => {
   return getLogFileContent()
 })
 export { watchLogFile }
+
+ipcMain.handle('logger:log', (_, message: string) => {
+  logger.log('info', message)
+})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

@@ -4,22 +4,23 @@ import { IProfile } from '@renderer/interfaces'
 
 declare global {
   interface Window {
-    electron: ElectronAPI // Тип для API, предоставляемого Electron
+    electron: ElectronAPI
     api: {
-      // Тип для твоего объекта `api`
       logger: {
         log: (message: string) => Promise<void>
         info: (message: string) => Promise<void>
         warn: (message: string) => Promise<void>
         error: (message: string) => Promise<void>
         success: (message: string) => Promise<void>
+        getFile: () => Promise<string> // <-- правильный тип
+        onUpdate: (callback: (content: string) => void) => void
       }
       db: {
         select: (
           tableName: string,
           columnNames: string[],
           WHEREoption?: object,
-          multipleChoice: boolean = false
+          multipleChoice: boolean
         ) => Promise<IProfile[]>
 
         insert: (
@@ -32,7 +33,7 @@ declare global {
         delete: (tableName: string, whereClause: string, values: unknown[]) => Promise<unknown>
       }
       crypto: {
-        generateWallet: (mode: string, countOfWallet: number = 1) => Promise<IWalletPair[]>
+        generateWallet: (mode: string, countOfWallet?: number) => Promise<IWalletPair[]>
       }
     }
   }

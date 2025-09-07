@@ -4,11 +4,17 @@ import { electronAPI } from '@electron-toolkit/preload'
 // Custom APIs for renderer
 const api = {
   logger: {
-    log: (message: string) => ipcRenderer.invoke('logger:log', message),
+    log: (message: string) => ipcRenderer.invoke('log-info', message),
     info: (message: string) => ipcRenderer.invoke('log-info', message),
     warn: (message: string) => ipcRenderer.invoke('log-warn', message),
     error: (message: string) => ipcRenderer.invoke('log-error', message),
-    success: (message: string) => ipcRenderer.invoke('log-success', message)
+    success: (message: string) => ipcRenderer.invoke('log-success', message),
+
+    // 🔥 вот это нужно реально прописать тут
+    getFile: () => ipcRenderer.invoke('get-log-file'),
+    onUpdate: (callback: (content: string) => void) => {
+      ipcRenderer.on('log-file-updated', (_, content) => callback(content))
+    }
   }
 }
 

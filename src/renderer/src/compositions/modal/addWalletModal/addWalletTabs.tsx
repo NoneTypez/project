@@ -11,15 +11,15 @@ interface TabPanelProps {
 }
 
 function TabPanel(props: TabPanelProps): JSX.Element {
-  const { children, value, index, ...other } = props
+  const { children, value, index } = props
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`tabpanel-${index}`}
       aria-labelledby={`tab-${index}`}
-      {...other}
+      // {...other}
     >
       {value === index && (
         <Box
@@ -33,7 +33,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
           {children}
         </Box>
       )}
-    </div>
+    </Box>
   )
 }
 
@@ -78,7 +78,7 @@ export function AddWalletsTabs(): JSX.Element {
               sx: {
                 display: 'flex',
                 justifyContent: 'space-between',
-                width: '100vw',
+                width: '100%',
                 alignContent: 'center',
                 height: '2px',
                 bottom: '10px',
