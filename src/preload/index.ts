@@ -2,7 +2,15 @@ import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
-const api = {}
+const api = {
+  logger: {
+    log: (message: string) => ipcRenderer.invoke('logger:log', message),
+    info: (message: string) => ipcRenderer.invoke('log-info', message),
+    warn: (message: string) => ipcRenderer.invoke('log-warn', message),
+    error: (message: string) => ipcRenderer.invoke('log-error', message),
+    success: (message: string) => ipcRenderer.invoke('log-success', message)
+  }
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

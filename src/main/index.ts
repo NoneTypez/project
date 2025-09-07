@@ -1,9 +1,29 @@
-/* eslint-disable prettier/prettier */
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import path, { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import logger from './backend/logger'
 import { db } from './backend/db/dbEngine'
+import fs from 'fs'
+
+const logFile = path.join(app.getPath('userData'), 'app.log')
+
+// 👉 функция чтения файла целиком
+function getLogFileContent(): string {
+  if (!fs.existsSync(logFile)) return ''
+  return fs.readFileSync(logFile, 'utf-8')
+}
+
+// 👉 следим за изменениями файла
+function watchLogFile(mainWindow: BrowserWindow): void {
+  if (!fs.existsSync(logFile)) {
+    fs.writeFileSync(logFile, '', 'utf-8')
+  }
+
+  fs.watchFile(logFile, { interval: 1000 }, () => {
+    const content = getLogFileContent()
+    mainWindow.webContents.send('log-file-updated', content)
+  })
+}
 
 function createWindow(): void {
   // Create the browser window.
@@ -90,5 +110,10 @@ ipcMain.on('window:close', (event) => {
   const win = BrowserWindow.fromWebContents(event.sender)
   win?.close()
 })
+
+ipcMain.handle('get-log-file', () => {
+  return getLogFileContent()
+})
+export { watchLogFile }
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
