@@ -23,7 +23,7 @@ const fieldStyle = {
   }
 }
 
-export default function AddProfileTab(): JSX.Element {
+export default function AddWalletTab(): JSX.Element {
   return (
     <Box
       sx={{

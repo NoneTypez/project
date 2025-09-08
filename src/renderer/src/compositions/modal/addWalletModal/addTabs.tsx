@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs } from '@mui/material'
 import { JSX, useState } from 'react'
-import EmptyPage from '@renderer/compositions/pages/emptyPage/emptyPage'
 import AddProfileTab from './addProfileTab'
+import AddWalletTab from './addWalletTab'
 // import AddProfileMode from './addProfileTab'
 
 interface TabPanelProps {
@@ -37,7 +37,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
   )
 }
 
-export function AddWalletsTabs(): JSX.Element {
+export function AddTabs(): JSX.Element {
   const [value, setValue] = useState(0)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number): void => {
@@ -57,14 +57,6 @@ export function AddWalletsTabs(): JSX.Element {
       backgroundColor: 'transparent'
     }
   }
-
-  // const [resetInputs, setResetInputs] = useState(false)
-
-  // const [walletsInputData, setWalletsInputData] = useState<{ [key: string]: string }>({})
-
-  // const walletHandleDataChange = useCallback((newData: { [key: string]: string }) => {
-  //   setWalletsInputData(newData)
-  // }, [])
 
   return (
     <Box>
@@ -97,7 +89,7 @@ export function AddWalletsTabs(): JSX.Element {
           <AddProfileTab />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <EmptyPage />
+          <AddWalletTab />
         </TabPanel>
       </Box>
     </Box>

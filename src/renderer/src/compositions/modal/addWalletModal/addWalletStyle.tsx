@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { JSX } from 'react'
-import { AddWalletsTabs } from './addWalletTabs'
+import { AddTabs } from './addTabs'
 
 export default function AddWalletstyle(): JSX.Element {
   return (
@@ -12,7 +12,7 @@ export default function AddWalletstyle(): JSX.Element {
         alignItems: 'center'
       }}
     >
-      <AddWalletsTabs />
+      <AddTabs />
     </Box>
   )
 }
