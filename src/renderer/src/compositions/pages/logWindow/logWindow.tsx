@@ -5,7 +5,7 @@ import LogViewer from '@renderer/components/logViewer'
 export default function LogWindow(): JSX.Element {
   return (
     <Box>
-      <Box>
+      <Box sx={{ padding: 1 }}>
         <LogViewer />
       </Box>
     </Box>

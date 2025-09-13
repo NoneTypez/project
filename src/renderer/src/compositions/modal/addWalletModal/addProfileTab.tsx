@@ -1,11 +1,17 @@
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, IconButton, TextField } from '@mui/material'
 import Grid from '@mui/material/Grid'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
 
 import { JSX } from 'react'
+import { Padding, Widgets } from '@mui/icons-material'
+import { electron } from 'process'
 
 const fieldStyle = {
   '& .MuiInputLabel-root': {
-    color: '#cdd2d5ff' // цвет текста label
+    color: '#6d6d6dff', // цвет текста label
+    '&.Mui-focused': {
+      color: '#cdd2d5ff' // цвет label при фокусе
+    }
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
@@ -19,18 +25,41 @@ const fieldStyle = {
     }
   },
   '& .MuiInputBase-input': {
-    color: '#b5b3b3ff' // цвет текста внутри поля
+    color: '#cdd2d5ff'
+    // цвет текста внутри поля
+  },
+  padding: 0
+}
+
+const generateButtonStyle = {
+  position: 'absolute',
+  color: '#cdd2d5ff', // цвет иконки
+  borderRadius: '10px',
+  transition: 'all 0.3s ease', // плавность
+
+  '&:hover': {
+    backgroundColor: 'rgba(205, 210, 213, 0.15)', // легкая подсветка
+    transform: 'scale(1.1)', // плавное увеличение
+    boxShadow: '0 0 8px rgba(205, 210, 213, 0.4)' // лёгкое свечение
+  },
+  '&:active': {
+    transform: 'scale(0.95)' // эффект нажатия
   }
 }
 
 export default function AddProfileTab(): JSX.Element {
+  const handleGenerate = (): void => {
+    // Тут генерируешь сид-фразу
+    // например, console.log(`Generate seed for ${ticker}`)
+    window.api.logger.warn('GENERATED A WALLET!!!')
+  }
   return (
     <Box
       sx={{
         p: 2,
         display: 'flex',
         flexDirection: 'column',
-        height: '600px',
+        height: '650px',
         justifyContent: 'space-between',
         alignItems: 'center'
       }}
@@ -66,6 +95,106 @@ export default function AddProfileTab(): JSX.Element {
         </Grid>
         <Grid>
           <TextField required fullWidth label="proxy" size="small" sx={fieldStyle} />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth
+            required
+            multiline
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <IconButton onClick={() => handleGenerate('EVM')}>
+                    <AutorenewIcon sx={generateButtonStyle} />
+                  </IconButton>
+                )
+              }
+            }}
+            rows={4}
+            label="evm"
+            size="small"
+            sx={{ ...fieldStyle, width: 300 }}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            required
+            label="btc"
+            size="small"
+            sx={{ ...fieldStyle, width: 300 }}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <IconButton onClick={() => handleGenerate('EVM')}>
+                    <AutorenewIcon sx={generateButtonStyle} />
+                  </IconButton>
+                )
+              }
+            }}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth
+            required
+            multiline
+            rows={4}
+            label="sol"
+            size="small"
+            sx={{ ...fieldStyle, width: 300 }}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <IconButton onClick={() => handleGenerate('EVM')}>
+                    <AutorenewIcon sx={generateButtonStyle} />
+                  </IconButton>
+                )
+              }
+            }}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            required
+            label="atom"
+            size="small"
+            sx={{ ...fieldStyle, width: 300 }}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <IconButton onClick={() => handleGenerate('EVM')}>
+                    <AutorenewIcon sx={generateButtonStyle} />
+                  </IconButton>
+                )
+              }
+            }}
+          />
+        </Grid>
+        <Grid>
+          <TextField
+            fullWidth
+            required
+            multiline
+            rows={4}
+            label="ton"
+            size="small"
+            sx={{ ...fieldStyle, width: 300 }}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <IconButton onClick={() => handleGenerate('EVM')}>
+                    <AutorenewIcon sx={generateButtonStyle} />
+                  </IconButton>
+                )
+              }
+            }}
+          />
         </Grid>
       </Grid>
 

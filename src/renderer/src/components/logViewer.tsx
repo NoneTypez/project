@@ -35,11 +35,10 @@ export default function LogViewer(): JSX.Element {
     <div
       ref={logRef}
       style={{
-        height: '91vh',
+        height: '89vh',
         overflowY: 'auto',
-        padding: '8px',
         borderRadius: '8px',
-        backgroundColor: '#1a1a1abf'
+        backgroundColor: '#2a272a'
       }}
     >
       {logContent.map((line, index) => (
@@ -49,6 +48,7 @@ export default function LogViewer(): JSX.Element {
             whiteSpace: 'pre-wrap',
             fontFamily: 'monospace',
             margin: 0,
+            padding: 0,
             color: getColorForLog(line)
           }}
         >

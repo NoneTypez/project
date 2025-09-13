@@ -5,7 +5,10 @@ import { JSX } from 'react'
 
 const fieldStyle = {
   '& .MuiInputLabel-root': {
-    color: '#cdd2d5ff' // цвет текста label
+    color: '#6d6d6dff', // цвет текста label
+    '&.Mui-focused': {
+      color: '#cdd2d5ff' // цвет label при фокусе
+    }
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
@@ -19,7 +22,7 @@ const fieldStyle = {
     }
   },
   '& .MuiInputBase-input': {
-    color: '#b5b3b3ff' // цвет текста внутри поля
+    color: '#cdd2d5ff' // цвет текста внутри поля
   }
 }
 

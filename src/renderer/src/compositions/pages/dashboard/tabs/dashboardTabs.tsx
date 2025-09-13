@@ -36,7 +36,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
         <Box
           sx={{
             p: 0,
-            height: '100vh', // регулируй отступ от Tabs
+            height: '100%', // регулируй отступ от Tabs
             overflowY: 'auto'
           }}
         >
@@ -58,6 +58,7 @@ export default function DashboardTabs(): JSX.Element {
     color: '#6d6d6dff',
     paddingTop: 0,
     paddingBottom: 0,
+    border: 0,
     fontSize: '17px',
     textTransform: 'none',
     '&.Mui-selected': {
@@ -77,7 +78,7 @@ export default function DashboardTabs(): JSX.Element {
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', paddingLeft: 20 }}>
         {/* Tabs занимают всё доступное место */}
         <Tabs
           value={value}

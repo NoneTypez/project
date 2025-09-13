@@ -64,7 +64,9 @@ export default function Table(): JSX.Element {
       component={Paper}
       className={cn(styles.main)}
       sx={{
-        maxHeight: 'calc(100vh - 130px)', // динамически ограничиваем
+        height: '100%',
+
+        maxHeight: 'calc(100vh - 120px)', // динамически ограничиваем
         overflow: 'auto',
         background:
           'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
