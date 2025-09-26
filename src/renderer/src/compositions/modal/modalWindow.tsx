@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
+// import IconButton from '@mui/material/IconButton'
+// import CloseIcon from '@mui/icons-material/Close'
 import { Fade } from '@mui/material'
 import { JSX } from 'react'
 
@@ -29,18 +29,18 @@ function ModalWindow({ open, onClose, children }: IModalWindow): JSX.Element {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            display: 'flex',
-            justifyContent: 'center',
+            alignContent: 'center',
             alignItems: 'center',
             bgcolor: '#2a272a',
             borderRadius: '10px',
             boxShadow: 24,
             height: 700,
-            width: 800
+            width: 800,
+            p: 0
           }}
         >
           {/* Заголовок с крестиком */}
-          <Box
+          {/* <Box
             sx={{
               position: 'absolute',
               top: 0,
@@ -52,12 +52,15 @@ function ModalWindow({ open, onClose, children }: IModalWindow): JSX.Element {
               aria-label="close"
               onClick={onClose}
               sx={{
+                position: 'absolute',
+                top: 1,
+                right: 1,
                 color: '#929292ff' // или другой цвет
               }}
             >
               <CloseIcon />
             </IconButton>
-          </Box>
+          </Box> */}
           {children}
         </Box>
       </Fade>

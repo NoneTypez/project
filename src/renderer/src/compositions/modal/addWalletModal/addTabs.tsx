@@ -25,7 +25,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
         <Box
           sx={{
             p: 0,
-            // height: 100
+            height: '70%',
             width: 790,
             overflowY: 'auto'
           }}
@@ -72,7 +72,7 @@ export function AddTabs(): JSX.Element {
                 justifyContent: 'space-between',
                 width: '100%',
                 alignContent: 'center',
-                height: '2px',
+                // height: '2px',
                 bottom: '10px',
                 borderRadius: '4px',
                 backgroundColor: '#b3b5b6ff'

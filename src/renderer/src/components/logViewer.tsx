@@ -35,7 +35,7 @@ export default function LogViewer(): JSX.Element {
     <div
       ref={logRef}
       style={{
-        height: '89vh',
+        height: '90vh',
         overflowY: 'auto',
         borderRadius: '8px',
         backgroundColor: '#2a272a'

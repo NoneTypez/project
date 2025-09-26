@@ -14,7 +14,16 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
       <SideBar />
-      <Box className="container">
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%',
+          marginLeft: '4px',
+          padding: 0,
+          height: 'auto'
+        }}
+      >
         <Window>
           <CustomRoutes />
         </Window>

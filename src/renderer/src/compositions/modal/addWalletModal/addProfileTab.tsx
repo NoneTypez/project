@@ -3,8 +3,6 @@ import Grid from '@mui/material/Grid'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 
 import { JSX } from 'react'
-import { Padding, Widgets } from '@mui/icons-material'
-import { electron } from 'process'
 
 const fieldStyle = {
   '& .MuiInputLabel-root': {
@@ -56,10 +54,9 @@ export default function AddProfileTab(): JSX.Element {
   return (
     <Box
       sx={{
-        p: 2,
+        p: 1,
         display: 'flex',
         flexDirection: 'column',
-        height: '650px',
         justifyContent: 'space-between',
         alignItems: 'center'
       }}
