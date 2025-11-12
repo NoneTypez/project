@@ -24,7 +24,10 @@ export default tseslint.config(
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
-      ...eslintPluginReactRefresh.configs.vite.rules
+      ...eslintPluginReactRefresh.configs.vite.rules,
+      "rules": {
+    "linebreak-style": "off"
+  }
     }
   },
   eslintConfigPrettier
