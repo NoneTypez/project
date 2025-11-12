@@ -4,7 +4,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 
 import { JSX } from 'react'
 
-const fieldStyle = {
+export const fieldStyle = {
   '& .MuiInputLabel-root': {
     color: '#6d6d6dff', // цвет текста label
     '&.Mui-focused': {
@@ -45,170 +45,182 @@ const generateButtonStyle = {
   }
 }
 
-export default function AddProfileTab(): JSX.Element {
+export default function AddProfileTab({ onClose }: { onClose: () => void }): JSX.Element {
   const handleGenerate = (typeOfWallet: string): void => {
     // Тут генерируешь сид-фразу
     // например, console.log(`Generate seed for ${ticker}`)
     window.api.logger.warn(`GENERATED A ${typeOfWallet} WALLET!!!`)
   }
+
+  const handleAdd = () => {
+    console.log('Добавляем...')
+    onClose()
+  }
+
   return (
     <Box
       sx={{
-        p: 1,
+        mt: 2,
+        mb: 2,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '620px'
       }}
     >
-      {/* Поля ввода */}
-      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Grid>
-          <TextField required label="имя" size="small" sx={{ ...fieldStyle }} />
+      <Box>
+        {/* Поля ввода */}
+        <Grid
+          container
+          spacing={2}
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        >
+          <Grid>
+            <TextField required label="имя" size="small" sx={{ ...fieldStyle }} />
+          </Grid>
+          <Grid>
+            <TextField
+              required
+              fullWidth
+              label="email"
+              size="small"
+              sx={{ ...fieldStyle, width: 400 }}
+            />
+          </Grid>
+          <Grid>
+            <TextField required label="twitter" size="small" sx={fieldStyle} />
+          </Grid>
+          <Grid>
+            <TextField required fullWidth label="discord" size="small" sx={fieldStyle} />
+          </Grid>
+          <Grid>
+            <TextField required fullWidth label="телефон" size="small" sx={fieldStyle} />
+          </Grid>
+          <Grid>
+            <TextField required fullWidth label="telegram" size="small" sx={fieldStyle} />
+          </Grid>
+          <Grid>
+            <TextField required fullWidth label="github" size="small" sx={fieldStyle} />
+          </Grid>
+          <Grid>
+            <TextField required fullWidth label="proxy" size="small" sx={fieldStyle} />
+          </Grid>
+          <Grid>
+            <TextField
+              fullWidth
+              required
+              multiline
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <IconButton onClick={() => handleGenerate('EVM')}>
+                      <AutorenewIcon sx={generateButtonStyle} />
+                    </IconButton>
+                  )
+                }
+              }}
+              rows={4}
+              label="evm"
+              size="small"
+              sx={{ ...fieldStyle, width: 300 }}
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              required
+              label="btc"
+              size="small"
+              sx={{ ...fieldStyle, width: 300 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <IconButton onClick={() => handleGenerate('BTC')}>
+                      <AutorenewIcon sx={generateButtonStyle} />
+                    </IconButton>
+                  )
+                }
+              }}
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              fullWidth
+              required
+              multiline
+              rows={4}
+              label="sol"
+              size="small"
+              sx={{ ...fieldStyle, width: 300 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <IconButton onClick={() => handleGenerate('SOL')}>
+                      <AutorenewIcon sx={generateButtonStyle} />
+                    </IconButton>
+                  )
+                }
+              }}
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              required
+              label="atom"
+              size="small"
+              sx={{ ...fieldStyle, width: 300 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <IconButton onClick={() => handleGenerate('ATOM')}>
+                      <AutorenewIcon sx={generateButtonStyle} />
+                    </IconButton>
+                  )
+                }
+              }}
+            />
+          </Grid>
+          <Grid>
+            <TextField
+              fullWidth
+              required
+              multiline
+              rows={4}
+              label="ton"
+              size="small"
+              sx={{ ...fieldStyle, width: 300 }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <IconButton onClick={() => handleGenerate('TON')}>
+                      <AutorenewIcon sx={generateButtonStyle} />
+                    </IconButton>
+                  )
+                }
+              }}
+            />
+          </Grid>
         </Grid>
-        <Grid>
-          <TextField
-            required
-            fullWidth
-            label="email"
-            size="small"
-            sx={{ ...fieldStyle, width: 400 }}
-          />
-        </Grid>
-        <Grid>
-          <TextField required label="twitter" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="discord" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="телефон" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="telegram" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="github" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="proxy" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField
-            fullWidth
-            required
-            multiline
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <IconButton onClick={() => handleGenerate('EVM')}>
-                    <AutorenewIcon sx={generateButtonStyle} />
-                  </IconButton>
-                )
-              }
-            }}
-            rows={4}
-            label="evm"
-            size="small"
-            sx={{ ...fieldStyle, width: 300 }}
-          />
-        </Grid>
-        <Grid>
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            required
-            label="btc"
-            size="small"
-            sx={{ ...fieldStyle, width: 300 }}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <IconButton onClick={() => handleGenerate('BTC')}>
-                    <AutorenewIcon sx={generateButtonStyle} />
-                  </IconButton>
-                )
-              }
-            }}
-          />
-        </Grid>
-        <Grid>
-          <TextField
-            fullWidth
-            required
-            multiline
-            rows={4}
-            label="sol"
-            size="small"
-            sx={{ ...fieldStyle, width: 300 }}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <IconButton onClick={() => handleGenerate('SOL')}>
-                    <AutorenewIcon sx={generateButtonStyle} />
-                  </IconButton>
-                )
-              }
-            }}
-          />
-        </Grid>
-        <Grid>
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            required
-            label="atom"
-            size="small"
-            sx={{ ...fieldStyle, width: 300 }}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <IconButton onClick={() => handleGenerate('ATOM')}>
-                    <AutorenewIcon sx={generateButtonStyle} />
-                  </IconButton>
-                )
-              }
-            }}
-          />
-        </Grid>
-        <Grid>
-          <TextField
-            fullWidth
-            required
-            multiline
-            rows={4}
-            label="ton"
-            size="small"
-            sx={{ ...fieldStyle, width: 300 }}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <IconButton onClick={() => handleGenerate('TON')}>
-                    <AutorenewIcon sx={generateButtonStyle} />
-                  </IconButton>
-                )
-              }
-            }}
-          />
-        </Grid>
-      </Grid>
+      </Box>
 
       {/* Кнопки */}
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 4,
-          mt: 4
+          justifyContent: 'end',
+          gap: 4
         }}
       >
-        <Button variant="outlined" sx={{ width: 130 }}>
+        <Button variant="outlined" sx={{ width: 130 }} onClick={handleAdd}>
           ДОБАВИТЬ
         </Button>
-        <Button variant="outlined" color="error" sx={{ width: 130 }}>
+        <Button variant="outlined" color="error" sx={{ width: 130 }} onClick={onClose}>
           ОТМЕНА
         </Button>
       </Box>

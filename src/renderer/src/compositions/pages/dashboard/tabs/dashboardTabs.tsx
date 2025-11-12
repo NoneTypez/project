@@ -117,7 +117,7 @@ export default function DashboardTabs(): JSX.Element {
         </Button>
 
         <ModalWindow open={open} onClose={handleClose}>
-          <AddWalletstyle />
+          <AddWalletstyle onClose={handleClose} />
         </ModalWindow>
       </Box>
 

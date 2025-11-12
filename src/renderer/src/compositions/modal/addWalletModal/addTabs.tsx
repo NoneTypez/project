@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from '@mui/material'
 import { JSX, useState } from 'react'
 import AddProfileTab from './addProfileTab'
+import AddWallet from './addWalletTab'
 import AddWalletTab from './addWalletTab'
 // import AddProfileMode from './addProfileTab'
 
@@ -25,7 +26,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
         <Box
           sx={{
             p: 0,
-            height: '70%',
+            height: '100%',
             width: 790,
             overflowY: 'auto'
           }}
@@ -37,7 +38,7 @@ function TabPanel(props: TabPanelProps): JSX.Element {
   )
 }
 
-export function AddTabs(): JSX.Element {
+export function AddTabs({ onClose }: { onClose: () => void }): JSX.Element {
   const [value, setValue] = useState(0)
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number): void => {
@@ -72,7 +73,7 @@ export function AddTabs(): JSX.Element {
                 justifyContent: 'space-between',
                 width: '100%',
                 alignContent: 'center',
-                // height: '2px',
+                height: '2px',
                 bottom: '10px',
                 borderRadius: '4px',
                 backgroundColor: '#b3b5b6ff'
@@ -86,10 +87,10 @@ export function AddTabs(): JSX.Element {
 
         {/* Содержимое вкладок */}
         <TabPanel value={value} index={0}>
-          <AddProfileTab />
+          <AddProfileTab onClose={onClose} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <AddWalletTab />
+          <AddWallet onClose={onClose} />
         </TabPanel>
       </Box>
     </Box>

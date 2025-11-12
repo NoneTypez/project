@@ -1,135 +1,170 @@
-import { Box, Button, Tab, Tabs, TextField } from '@mui/material'
-import Grid from '@mui/material/Grid'
+import { useState } from 'react'
+import {
+  Box,
+  Grid,
+  TextField,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  RadioGroup,
+  Radio
+} from '@mui/material'
+import { fieldStyle } from './addProfileTab'
 
-import { JSX, useState } from 'react'
+export default function AddWalletTab({ onClose }: { onClose: () => void }) {
+  const [multiple, setMultiple] = useState(false)
+  const [count, setCount] = useState('')
+  const [mnemonic, setMnemonic] = useState('')
+  const [walletType, setWalletType] = useState('EVM')
+  const [countError, setCountError] = useState(false)
 
-const fieldStyle = {
-  '& .MuiInputLabel-root': {
-    color: '#6d6d6dff', // цвет текста label
-    '&.Mui-focused': {
-      color: '#cdd2d5ff' // цвет label при фокусе
-    }
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: '#4f4f4fff' // цвет рамки
-    },
-    '&:hover fieldset': {
-      borderColor: '#cdd2d5ff' // цвет рамки при наведении
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: '#cdd2d5ff' // цвет рамки при фокусе
-    }
-  },
-  '& .MuiInputBase-input': {
-    color: '#cdd2d5ff' // цвет текста внутри поля
-  }
-}
-
-export default function AddWalletTab(): JSX.Element {
-  const [value, setValue] = useState(0)
-
-  const handleChange = (_event: React.SyntheticEvent, newValue: number): void => {
-    setValue(newValue)
+  const handleAdd = () => {
+    console.log('Добавляем...')
+    onClose()
   }
 
-  const tabStyle = {
-    color: '#6d6d6dff',
-    paddingTop: 0,
-    paddingBottom: 0,
-    fontSize: '17px',
-    textTransform: 'none',
-    '&.Mui-selected': {
-      color: '#b3b5b6ff'
-    },
-    '&.Mui-focusVisible': {
-      backgroundColor: 'transparent'
-    }
+  const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setCount(value)
+
+    // Проверяем, что строка состоит только из цифр и не пустая
+    const isValid = /^[0-9]+$/.test(value)
+    setCountError(!isValid)
   }
 
   return (
     <Box
       sx={{
-        p: 2,
         display: 'flex',
         flexDirection: 'column',
-        height: '600px',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '660px',
+        p: 3
       }}
     >
-      <Box>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          centered
-          slotProps={{
-            indicator: {
-              sx: {
-                display: 'flex',
-                justifyContent: 'space-between',
-                width: '100%',
-                alignContent: 'center',
-                // height: '2px',
-                bottom: '10px',
-                borderRadius: '4px',
-                backgroundColor: '#b3b5b6ff'
-              }
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {/* Выбор типа кошелька */}
+        <RadioGroup
+          row
+          value={walletType}
+          onChange={(e) => setWalletType(e.target.value)}
+          sx={{
+            '& .MuiSvgIcon-root': {
+              color: '#1976d2' // цвет контура кружка
+            },
+            '&.Mui-checked .MuiSvgIcon-root': {
+              color: '#1976d2' // цвет заполненного кружка
             }
           }}
         >
-          <Tab label="ПРОФИЛЬ" sx={tabStyle} disableRipple />
-          <Tab label="КОШЕЛЕК" sx={tabStyle} disableRipple />
-        </Tabs>
-      </Box>
-      {/* Поля ввода */}
-      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Grid>
-          <TextField required label="имя" size="small" sx={{ ...fieldStyle }} />
-        </Grid>
-        <Grid>
-          <TextField
-            required
-            fullWidth
-            label="email"
-            size="small"
-            sx={{ ...fieldStyle, width: 400 }}
+          <FormControlLabel
+            value="EVM"
+            control={<Radio />}
+            sx={{ color: '#6d6d6dff' }}
+            label="EVM"
           />
+          <FormControlLabel
+            value="BTC"
+            control={<Radio />}
+            sx={{ color: '#6d6d6dff' }}
+            label="BTC"
+          />
+          <FormControlLabel
+            value="SOL"
+            control={<Radio />}
+            sx={{ color: '#6d6d6dff' }}
+            label="SOL"
+          />
+          <FormControlLabel
+            value="ATOM"
+            control={<Radio />}
+            sx={{ color: '#6d6d6dff' }}
+            label="ATOM"
+          />
+          <FormControlLabel
+            value="TON"
+            control={<Radio />}
+            sx={{ color: '#6d6d6dff' }}
+            label="TON"
+          />
+        </RadioGroup>
+
+        {/* Чекбокс "multiple" */}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={multiple}
+              onChange={(e) => setMultiple(e.target.checked)}
+              sx={{
+                '& .MuiSvgIcon-root': {
+                  color: '#6d6d6dff' // цвет рамки чекбокса
+                },
+                '&.Mui-checked .MuiSvgIcon-root': {
+                  color: '#1976d2' // цвет при активном состоянии
+                },
+                '&:hover .MuiSvgIcon-root': {
+                  color: '#a9aeb0ff' // цвет рамки при наведении
+                }
+              }}
+            />
+          }
+          label="Multiple wallet generator"
+          sx={{
+            mb: 2,
+            color: '#6d6d6dff' // цвет текста подписи
+          }}
+        />
+
+        {/* Поля */}
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ width: '100%', maxWidth: 700, mb: 4 }}
+        >
+          {multiple ? (
+            <Grid size={12}>
+              <TextField
+                fullWidth
+                size="small"
+                label="Количество кошельков"
+                value={count}
+                onChange={handleCountChange}
+                sx={{ ...fieldStyle }}
+                error={countError}
+                helperText={countError ? 'Введите только число (например: 5)' : ''}
+              />
+            </Grid>
+          ) : (
+            <Grid size={12}>
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                size="small"
+                label="Мнемоническая фраза"
+                value={mnemonic}
+                onChange={(e) => setMnemonic(e.target.value)}
+                sx={{ ...fieldStyle }}
+              />
+            </Grid>
+          )}
         </Grid>
-        <Grid>
-          <TextField required label="twitter" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="discord" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="телефон" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="telegram" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="github" size="small" sx={fieldStyle} />
-        </Grid>
-        <Grid>
-          <TextField required fullWidth label="proxy" size="small" sx={fieldStyle} />
-        </Grid>
-      </Grid>
+      </Box>
 
       {/* Кнопки */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 4,
-          mt: 4
-        }}
-      >
-        <Button variant="outlined" sx={{ width: 130 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'end', gap: 4 }}>
+        <Button
+          variant="outlined"
+          sx={{ width: 130 }}
+          onClick={handleAdd}
+          disabled={multiple && (countError || !count)} // ✅ блокировка кнопки при ошибке
+        >
           ДОБАВИТЬ
         </Button>
-        <Button variant="outlined" color="error" sx={{ width: 130 }}>
+        <Button variant="outlined" color="error" sx={{ width: 130 }} onClick={onClose}>
           ОТМЕНА
         </Button>
       </Box>

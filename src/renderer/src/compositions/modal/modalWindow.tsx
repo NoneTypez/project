@@ -39,28 +39,6 @@ function ModalWindow({ open, onClose, children }: IModalWindow): JSX.Element {
             p: 0
           }}
         >
-          {/* Заголовок с крестиком */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              padding: 1
-            }}
-          >
-            <IconButton
-              aria-label="close"
-              onClick={onClose}
-              sx={{
-                position: 'absolute',
-                top: 1,
-                right: 1,
-                color: '#929292ff' // или другой цвет
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
-          </Box>
           {children}
         </Box>
       </Fade>
