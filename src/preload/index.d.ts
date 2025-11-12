@@ -6,6 +6,11 @@ declare global {
   interface Window {
     electron: ElectronAPI
     api: {
+      titleBar: {
+        minimize: () => Promise<void>
+        maximize: () => Promise<void>
+        close: () => Promise<void>
+      }
       logger: {
         log: (message: string) => Promise<void>
         info: (message: string) => Promise<void>

@@ -1,7 +1,7 @@
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Button, Tab, Tabs, TextField } from '@mui/material'
 import Grid from '@mui/material/Grid'
 
-import { JSX } from 'react'
+import { JSX, useState } from 'react'
 
 const fieldStyle = {
   '& .MuiInputLabel-root': {
@@ -27,6 +27,26 @@ const fieldStyle = {
 }
 
 export default function AddWalletTab(): JSX.Element {
+  const [value, setValue] = useState(0)
+
+  const handleChange = (_event: React.SyntheticEvent, newValue: number): void => {
+    setValue(newValue)
+  }
+
+  const tabStyle = {
+    color: '#6d6d6dff',
+    paddingTop: 0,
+    paddingBottom: 0,
+    fontSize: '17px',
+    textTransform: 'none',
+    '&.Mui-selected': {
+      color: '#b3b5b6ff'
+    },
+    '&.Mui-focusVisible': {
+      backgroundColor: 'transparent'
+    }
+  }
+
   return (
     <Box
       sx={{
@@ -38,6 +58,30 @@ export default function AddWalletTab(): JSX.Element {
         alignItems: 'center'
       }}
     >
+      <Box>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          centered
+          slotProps={{
+            indicator: {
+              sx: {
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+                alignContent: 'center',
+                // height: '2px',
+                bottom: '10px',
+                borderRadius: '4px',
+                backgroundColor: '#b3b5b6ff'
+              }
+            }
+          }}
+        >
+          <Tab label="ПРОФИЛЬ" sx={tabStyle} disableRipple />
+          <Tab label="КОШЕЛЕК" sx={tabStyle} disableRipple />
+        </Tabs>
+      </Box>
       {/* Поля ввода */}
       <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Grid>

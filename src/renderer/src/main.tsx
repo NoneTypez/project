@@ -9,10 +9,12 @@ import Window from './compositions/window/window'
 import Footer from './compositions/footer/footer'
 import CustomRoutes from './routes/routes'
 import { Box } from '@mui/material'
+// import TitleBar from './compositions/titleBar/titleBar'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
+      {/* <TitleBar /> */}
       <SideBar />
       <Box
         sx={{

@@ -46,10 +46,10 @@ const generateButtonStyle = {
 }
 
 export default function AddProfileTab(): JSX.Element {
-  const handleGenerate = (): void => {
+  const handleGenerate = (typeOfWallet: string): void => {
     // Тут генерируешь сид-фразу
     // например, console.log(`Generate seed for ${ticker}`)
-    window.api.logger.warn('GENERATED A WALLET!!!')
+    window.api.logger.warn(`GENERATED A ${typeOfWallet} WALLET!!!`)
   }
   return (
     <Box
@@ -125,7 +125,7 @@ export default function AddProfileTab(): JSX.Element {
             slotProps={{
               input: {
                 endAdornment: (
-                  <IconButton onClick={() => handleGenerate('EVM')}>
+                  <IconButton onClick={() => handleGenerate('BTC')}>
                     <AutorenewIcon sx={generateButtonStyle} />
                   </IconButton>
                 )
@@ -145,7 +145,7 @@ export default function AddProfileTab(): JSX.Element {
             slotProps={{
               input: {
                 endAdornment: (
-                  <IconButton onClick={() => handleGenerate('EVM')}>
+                  <IconButton onClick={() => handleGenerate('SOL')}>
                     <AutorenewIcon sx={generateButtonStyle} />
                   </IconButton>
                 )
@@ -165,7 +165,7 @@ export default function AddProfileTab(): JSX.Element {
             slotProps={{
               input: {
                 endAdornment: (
-                  <IconButton onClick={() => handleGenerate('EVM')}>
+                  <IconButton onClick={() => handleGenerate('ATOM')}>
                     <AutorenewIcon sx={generateButtonStyle} />
                   </IconButton>
                 )
@@ -185,7 +185,7 @@ export default function AddProfileTab(): JSX.Element {
             slotProps={{
               input: {
                 endAdornment: (
-                  <IconButton onClick={() => handleGenerate('EVM')}>
+                  <IconButton onClick={() => handleGenerate('TON')}>
                     <AutorenewIcon sx={generateButtonStyle} />
                   </IconButton>
                 )

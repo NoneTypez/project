@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 // import IconButton from '@mui/material/IconButton'
-// import CloseIcon from '@mui/icons-material/Close'
-import { Fade } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import { Fade, IconButton } from '@mui/material'
 import { JSX } from 'react'
 
 interface IModalWindow {
@@ -40,7 +40,7 @@ function ModalWindow({ open, onClose, children }: IModalWindow): JSX.Element {
           }}
         >
           {/* Заголовок с крестиком */}
-          {/* <Box
+          <Box
             sx={{
               position: 'absolute',
               top: 0,
@@ -60,7 +60,7 @@ function ModalWindow({ open, onClose, children }: IModalWindow): JSX.Element {
             >
               <CloseIcon />
             </IconButton>
-          </Box> */}
+          </Box>
           {children}
         </Box>
       </Fade>

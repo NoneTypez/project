@@ -12,9 +12,9 @@ export default function TitleBar(): JSX.Element {
 
       {isWindows && (
         <Box className={styles.buttons}>
-          <button onClick={() => window.api.electronAPI.minimize()}>—</button>
-          <button onClick={() => window.api.electronAPI.maximize()}>🗖</button>
-          <button onClick={() => window.api.electronAPI.close()}>✕</button>
+          <button onClick={() => window.api.titleBar.minimize()}>—</button>
+          <button onClick={() => window.api.titleBar.maximize()}>🗖</button>
+          <button onClick={() => window.api.titleBar.close()}>✕</button>
         </Box>
       )}
     </Box>
