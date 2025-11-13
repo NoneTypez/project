@@ -1,7 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material'
 import { JSX, useState } from 'react'
 import AddProfileTab from './addProfileTab'
-import AddWallet from './addWalletTab'
 import AddWalletTab from './addWalletTab'
 // import AddProfileMode from './addProfileTab'
 
@@ -90,7 +89,7 @@ export function AddTabs({ onClose }: { onClose: () => void }): JSX.Element {
           <AddProfileTab onClose={onClose} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <AddWallet onClose={onClose} />
+          <AddWalletTab onClose={onClose} />
         </TabPanel>
       </Box>
     </Box>

@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
+import crypto from '../main/backend/web3Scripts/client'
 
 // Custom APIs for renderer
 const api = {
@@ -14,6 +15,11 @@ const api = {
     getFile: () => ipcRenderer.invoke('get-log-file'),
     onUpdate: (callback: (content: string) => void) => {
       ipcRenderer.on('log-file-updated', (_, content) => callback(content))
+    }
+  },
+  crypto: {
+    generateWallet: (mode: string, countOfWallet?: number) => {
+      return Promise.resolve(crypto.generateWallet(mode as any, countOfWallet))
     }
   }
 }

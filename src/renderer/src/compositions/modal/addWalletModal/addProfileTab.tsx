@@ -2,7 +2,7 @@ import { Box, Button, IconButton, TextField } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 
-import { JSX } from 'react'
+import { JSX, useState } from 'react'
 
 export const fieldStyle = {
   '& .MuiInputLabel-root': {
@@ -46,13 +46,22 @@ const generateButtonStyle = {
 }
 
 export default function AddProfileTab({ onClose }: { onClose: () => void }): JSX.Element {
-  const handleGenerate = (typeOfWallet: string): void => {
-    // Тут генерируешь сид-фразу
-    // например, console.log(`Generate seed for ${ticker}`)
+  const [evmSeed, setEvmSeed] = useState('')
+  const handleGenerate = async (typeOfWallet: string): Promise<void> => {
     window.api.logger.warn(`GENERATED A ${typeOfWallet} WALLET!!!`)
+
+    const pair = await window.api.crypto.generateWallet('fromMnemonic')
+    console.log('PAIR:', pair)
+
+    if (pair && pair.length > 0) {
+      const wallet = pair[0]
+      const seed = wallet.seed || wallet.mnemonic || '' // 👈 fallback
+      if (seed) setEvmSeed(seed)
+      else console.warn('Seed not found in generated wallet:', wallet)
+    }
   }
 
-  const handleAdd = () => {
+  const handleAdd = (): void => {
     console.log('Добавляем...')
     onClose()
   }
@@ -111,6 +120,8 @@ export default function AddProfileTab({ onClose }: { onClose: () => void }): JSX
               fullWidth
               required
               multiline
+              value={evmSeed}
+              onChange={(e) => setEvmSeed(e.target.value)}
               slotProps={{
                 input: {
                   endAdornment: (
@@ -118,10 +129,14 @@ export default function AddProfileTab({ onClose }: { onClose: () => void }): JSX
                       <AutorenewIcon sx={generateButtonStyle} />
                     </IconButton>
                   )
+                },
+                inputLabel: {
+                  shrink: !!evmSeed, // label поднимается если есть текст
+                  sx: { fontSize: '0.75rem' } // маленький шрифт label
                 }
               }}
               rows={4}
-              label="evm"
+              label="EVM"
               size="small"
               sx={{ ...fieldStyle, width: 300 }}
             />

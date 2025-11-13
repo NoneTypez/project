@@ -7,7 +7,8 @@ import {
   Checkbox,
   FormControlLabel,
   RadioGroup,
-  Radio
+  Radio,
+  CircularProgress
 } from '@mui/material'
 import { fieldStyle } from './addProfileTab'
 
@@ -148,7 +149,11 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
                 value={mnemonic}
                 onChange={(e) => setMnemonic(e.target.value)}
                 sx={{ ...fieldStyle }}
+                error={mnemonic.length === 0}
               />
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 2 }}>
+                <CircularProgress size={'20px'} />
+              </Box>
             </Grid>
           )}
         </Grid>
@@ -160,7 +165,7 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
           variant="outlined"
           sx={{ width: 130 }}
           onClick={handleAdd}
-          disabled={multiple && (countError || !count)} // ✅ блокировка кнопки при ошибке
+          disabled={(multiple && (countError || !count)) || !mnemonic} // ✅ блокировка кнопки при ошибке
         >
           ДОБАВИТЬ
         </Button>

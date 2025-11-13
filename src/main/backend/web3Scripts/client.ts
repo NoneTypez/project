@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Chain, createPublicClient, createWalletClient, http, WalletClient } from 'viem'
 import {
   Account,
@@ -44,6 +43,7 @@ class Crypto {
 
     if (mode === 'fromMnemonic') {
       const seed = generateMnemonic(english)
+      console.log(seed)
 
       for (let i = 0; i < countOfWallet; i++) {
         const wallet = HDNodeWallet.fromPhrase(seed, `m/44'/60'/0'/0/${i}`)
