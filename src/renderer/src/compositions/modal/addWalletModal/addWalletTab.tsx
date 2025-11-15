@@ -34,6 +34,7 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
       // Генерация кошелька через новый API
       const wallet = window.api.crypto.getWalletFromMnemonic(mnemonicValue)
       setAddress(wallet.address)
+      console.log(wallet)
     } catch (e) {
       console.error('Ошибка получения адреса:', e)
       setAddress('')

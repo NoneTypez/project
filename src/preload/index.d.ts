@@ -40,7 +40,7 @@ declare global {
       }
       crypto: {
         generateWallet: (mode: string, countOfWallet?: number) => Promise<IWalletPair[]>
-        getWalletFromMnemonic: (mnemonic: string) => HDAccount
+        getWalletFromMnemonic: (mnemonic: string) => IWalletPair
       }
     }
   }

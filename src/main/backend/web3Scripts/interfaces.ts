@@ -1,6 +1,6 @@
 interface IWalletPair {
   phrase?: string
-  privatekey: string
+  privateKey: string | Uint8Array<ArrayBufferLike> | null
   address: string
 }
 

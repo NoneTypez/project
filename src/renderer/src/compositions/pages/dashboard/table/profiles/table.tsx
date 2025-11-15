@@ -131,7 +131,6 @@ export default function Table(): JSX.Element {
                     }}
                   />
                 </TableCell>
-
                 <TableCell>{row.id}</TableCell>
                 <TableCell>{row.profileName}</TableCell>
                 <TableCell>{row.balance}</TableCell>

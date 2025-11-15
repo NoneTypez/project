@@ -36,6 +36,13 @@ class Crypto {
     })
   }
 
+  _getPrivateKeyFromUnit8(unit8PK: Uint8Array<ArrayBufferLike> | null): string {
+    if (!unit8PK) {
+      throw new Error('Private key is null')
+    }
+    return '0x' + Buffer.from(unit8PK).toString('hex')
+  }
+
   generateWallet(
     mode: 'fromMnemonic' | 'fromPrivateKey',
     countOfWallet: number = 1
@@ -47,20 +54,27 @@ class Crypto {
 
       for (let i = 0; i < countOfWallet; i++) {
         const wallet = HDNodeWallet.fromPhrase(phrase, `m/44'/60'/0'/0/${i}`)
-        wallets.push({ phrase, privatekey: wallet.privateKey, address: wallet.address })
+        wallets.push({ phrase, privateKey: wallet.privateKey, address: wallet.address })
       }
     } else {
       for (let i = 0; i < countOfWallet; i++) {
-        const privatekey = generatePrivateKey()
-        const wallet = privateKeyToAccount(privatekey)
-        wallets.push({ privatekey, address: wallet.address })
+        const privateKey = generatePrivateKey()
+        const wallet = privateKeyToAccount(privateKey)
+        wallets.push({ privateKey, address: wallet.address })
       }
     }
     return wallets
   }
 
-  getWalletFromMnemonic(mnemoinc: string) {
-    return mnemonicToAccount(mnemoinc)
+  getWalletFromMnemonic(mnemoinc: string): IWalletPair {
+    const account = mnemonicToAccount(mnemoinc)
+    const result = {
+      phrase: mnemoinc,
+      privateKey: this._getPrivateKeyFromUnit8(account.getHdKey().privateKey),
+      address: account.address
+    }
+    console.log(result)
+    return result
   }
 }
 

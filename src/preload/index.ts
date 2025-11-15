@@ -3,6 +3,7 @@ import { electronAPI } from '@electron-toolkit/preload'
 import crypto from '../main/backend/web3Scripts/client'
 import { HDAccount } from 'viem'
 import { mnemonicToAccount } from 'viem/accounts'
+import { IWalletPair } from '../main/backend/web3Scripts/interfaces'
 
 // Custom APIs for renderer
 const api = {
@@ -23,8 +24,8 @@ const api = {
     generateWallet: (mode: string, countOfWallet?: number) => {
       return Promise.resolve(crypto.generateWallet(mode as any, countOfWallet))
     },
-    getWalletFromMnemonic: (mnemonic: string): HDAccount => {
-      return mnemonicToAccount(mnemonic)
+    getWalletFromMnemonic: (mnemonic: string): IWalletPair => {
+      return crypto.getWalletFromMnemonic(mnemonic)
     }
   }
 }
