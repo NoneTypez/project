@@ -8,7 +8,7 @@ import {
   mnemonicToAccount
 } from 'viem/accounts'
 import { HDNodeWallet } from 'ethers'
-import { IWalletPair } from './interfaces'
+import { IWallet } from '../db/db_types'
 
 class Crypto {
   alchemyAPI: string
@@ -43,11 +43,8 @@ class Crypto {
     return '0x' + Buffer.from(unit8PK).toString('hex')
   }
 
-  generateWallet(
-    mode: 'fromMnemonic' | 'fromPrivateKey',
-    countOfWallet: number = 1
-  ): IWalletPair[] {
-    const wallets: IWalletPair[] = []
+  generateWallet(mode: 'fromMnemonic' | 'fromPrivateKey', countOfWallet: number = 1): IWallet[] {
+    const wallets: IWallet[] = []
 
     if (mode === 'fromMnemonic') {
       const phrase = generateMnemonic(english)
@@ -66,7 +63,7 @@ class Crypto {
     return wallets
   }
 
-  getWalletFromMnemonic(mnemoinc: string): IWalletPair {
+  getWalletFromMnemonic(mnemoinc: string): IWallet {
     const account = mnemonicToAccount(mnemoinc)
     const result = {
       phrase: mnemoinc,

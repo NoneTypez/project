@@ -20,21 +20,27 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
   const [countError, setCountError] = useState(false)
   const [address, setAddress] = useState('')
   const [loadingAddress, setLoadingAddress] = useState(false)
+  const [wallet, setWallet] = useState({ phrase: '', privateKey: '', address: '' })
 
-  const handleAdd = () => {
-    console.log('Добавляем...')
+  const handleAdd = async () => {
+    await window.api.db.insertWalletData('evm_wallets', [
+      wallet.phrase,
+      wallet.privateKey,
+      wallet.address
+    ])
+
     onClose()
   }
 
-  const fetchAddress = (mnemonicValue: string) => {
+  const fetchAddress = async (mnemonicValue: string) => {
     try {
       setLoadingAddress(true)
       setAddress('')
 
       // Генерация кошелька через новый API
-      const wallet = window.api.crypto.getWalletFromMnemonic(mnemonicValue)
+      const wallet = await window.api.crypto.getWalletFromMnemonic(mnemonicValue)
+      setWallet(wallet)
       setAddress(wallet.address)
-      console.log(wallet)
     } catch (e) {
       console.error('Ошибка получения адреса:', e)
       setAddress('')

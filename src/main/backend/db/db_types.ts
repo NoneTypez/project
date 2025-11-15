@@ -28,8 +28,8 @@ type IProfile = {
 }
 
 type IWallet = {
-  seed: string
-  privatekey: string
+  phrase?: string
+  privateKey: string
   address: string
 }
 

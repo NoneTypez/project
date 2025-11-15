@@ -3,7 +3,8 @@ import { electronAPI } from '@electron-toolkit/preload'
 import crypto from '../main/backend/web3Scripts/client'
 import { HDAccount } from 'viem'
 import { mnemonicToAccount } from 'viem/accounts'
-import { IWalletPair } from '../main/backend/web3Scripts/interfaces'
+import { IProfile, IWallet, TABLES } from '../main/backend/db/db_types'
+import { db } from '../main/backend/db/dbEngine'
 
 // Custom APIs for renderer
 const api = {
@@ -21,13 +22,32 @@ const api = {
     }
   },
   crypto: {
-    generateWallet: (mode: string, countOfWallet?: number) => {
-      return Promise.resolve(crypto.generateWallet(mode as any, countOfWallet))
+    generateWallet: (mode: string, count?: number): Promise<IWallet[]> => {
+      // Вызываем локальную функцию crypto.generateWallet, возвращаем как Promise
+      return Promise.resolve(crypto.generateWallet(mode as any, count))
     },
-    getWalletFromMnemonic: (mnemonic: string): IWalletPair => {
-      return crypto.getWalletFromMnemonic(mnemonic)
+    getWalletFromMnemonic: (mnemonic: string): Promise<IWallet> => {
+      return Promise.resolve(crypto.getWalletFromMnemonic(mnemonic))
     }
   }
+
+  // db: {
+  //   selectData: (from: TABLES | '*') => {
+  //     return db.selectData(from)
+  //   },
+  //   insertProfileData: (inputData: IProfile) => {
+  //     return db.insertProfileData(inputData)
+  //   },
+  //   insertWalletData: (tableName: TABLES, inputData: IWallet[]) => {
+  //     return db.insertWalletData(tableName, inputData)
+  //   },
+  //   update: (inTable: TABLES, id: number, updateData: Partial<IProfile | IWallet>) => {
+  //     return db.update(inTable, id, updateData)
+  //   },
+  //   deleteData: (table: TABLES, ids: number | number[], columns?: string[]) => {
+  //     return db.deleteData(table, ids, columns)
+  //   }
+  // }
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

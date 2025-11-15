@@ -22,21 +22,29 @@ declare global {
         onUpdate: (callback: (content: string) => void) => void
       }
       db: {
-        select: (
-          tableName: string,
-          columnNames: string[],
-          WHEREoption?: object,
-          multipleChoice: boolean
-        ) => Promise<IProfile[]>
+        selectData: (from: TABLES | '*') => Promise<{
+          profiles?: IProfile[]
+          projects?: unknown[]
+          fees?: unknown[]
+          earnings?: unknown[]
+          evm_wallets?: IWallet[]
+          sol_wallets?: IWallet[]
+          btc_wallets?: IWallet[]
+          atom_wallets?: IWallet[]
+          ton_wallets?: IWallet[]
+        }>
 
-        insert: (
-          tableName: string,
-          columnNames: string[],
-          values: string[],
-          valuesToEncrypt?: Record<string, string>
-        ) => Promise<unknown>
+        insertProfileData: (inputData: IProfile) => Promise<void>
 
-        delete: (tableName: string, whereClause: string, values: unknown[]) => Promise<unknown>
+        insertWalletData: (tableName: TABLES, inputData: IWallet[]) => Promise<void>
+
+        update: (
+          inTable: TABLES,
+          id: number,
+          updateData: Partial<IProfile | IWallet>
+        ) => Promise<void>
+
+        deleteData: (table: TABLES, ids: number | number[], columns?: string[]) => Promise<void>
       }
       crypto: {
         generateWallet: (mode: string, countOfWallet?: number) => Promise<IWalletPair[]>

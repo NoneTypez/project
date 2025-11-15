@@ -164,8 +164,8 @@ class DB {
       this.db.transaction(() => {
         for (const walletData of inputData) {
           query.run({
-            seed: `ENC:${encrypt(walletData.seed)}`,
-            privatekey: `ENC:${encrypt(walletData.privatekey)}`,
+            seed: `ENC:${encrypt(walletData.phrase ?? '')}`,
+            privatekey: `ENC:${encrypt(walletData.privateKey)}`,
             address: `ENC:${encrypt(walletData.address)}`
           })
         }

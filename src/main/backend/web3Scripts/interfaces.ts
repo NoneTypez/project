@@ -1,11 +1,7 @@
-interface IWalletPair {
-  phrase?: string
-  privateKey: string | Uint8Array<ArrayBufferLike> | null
-  address: string
-}
+import { IWallet } from '../db/db_types'
 
 interface IWalletsPairs {
-  wallets: IWalletPair[]
+  wallets: IWallet[]
 }
 
-export type { IWalletPair, IWalletsPairs }
+export type { IWalletsPairs }
