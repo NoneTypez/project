@@ -1,5 +1,5 @@
 interface IWalletPair {
-  seed?: string
+  phrase?: string
   privatekey: string
   address: string
 }

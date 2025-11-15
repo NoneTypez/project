@@ -18,10 +18,40 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
   const [mnemonic, setMnemonic] = useState('')
   const [walletType, setWalletType] = useState('EVM')
   const [countError, setCountError] = useState(false)
+  const [address, setAddress] = useState('')
+  const [loadingAddress, setLoadingAddress] = useState(false)
 
   const handleAdd = () => {
     console.log('Добавляем...')
     onClose()
+  }
+
+  const fetchAddress = (mnemonicValue: string) => {
+    try {
+      setLoadingAddress(true)
+      setAddress('')
+
+      // Генерация кошелька через новый API
+      const wallet = window.api.crypto.getWalletFromMnemonic(mnemonicValue)
+      setAddress(wallet.address)
+    } catch (e) {
+      console.error('Ошибка получения адреса:', e)
+      setAddress('')
+    } finally {
+      setLoadingAddress(false)
+    }
+  }
+
+  const handleMnemonicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setMnemonic(value)
+
+    const words = value.trim().split(/\s+/)
+    if (words.length >= 12) {
+      fetchAddress(value)
+    } else {
+      setAddress('')
+    }
   }
 
   const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,13 +177,31 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
                 size="small"
                 label="Мнемоническая фраза"
                 value={mnemonic}
-                onChange={(e) => setMnemonic(e.target.value)}
+                onChange={handleMnemonicChange}
                 sx={{ ...fieldStyle }}
                 error={mnemonic.length === 0}
               />
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 2 }}>
-                <CircularProgress size={'20px'} />
-              </Box>
+
+              {/* Спиннер пока загружается */}
+              {loadingAddress && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 2 }}>
+                  <CircularProgress size={'20px'} />
+                </Box>
+              )}
+
+              {/* Адрес после загрузки */}
+              {!loadingAddress && address && (
+                <Box
+                  sx={{
+                    mt: 2,
+                    color: '#cdd2d5ff',
+                    fontSize: '0.8rem',
+                    wordBreak: 'break-all'
+                  }}
+                >
+                  Адрес: {address}
+                </Box>
+              )}
             </Grid>
           )}
         </Grid>
@@ -165,7 +213,7 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
           variant="outlined"
           sx={{ width: 130 }}
           onClick={handleAdd}
-          disabled={(multiple && (countError || !count)) || !mnemonic} // ✅ блокировка кнопки при ошибке
+          disabled={(multiple && (countError || !count)) || !address} // ✅ блокировка кнопки при ошибке
         >
           ДОБАВИТЬ
         </Button>

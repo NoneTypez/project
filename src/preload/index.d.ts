@@ -1,6 +1,7 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
 import { IWalletPair } from './interfaces'
 import { IProfile } from '@renderer/interfaces'
+import { HDAccount } from 'viem'
 
 declare global {
   interface Window {
@@ -39,6 +40,7 @@ declare global {
       }
       crypto: {
         generateWallet: (mode: string, countOfWallet?: number) => Promise<IWalletPair[]>
+        getWalletFromMnemonic: (mnemonic: string) => HDAccount
       }
     }
   }

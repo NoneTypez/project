@@ -51,12 +51,11 @@ export default function AddProfileTab({ onClose }: { onClose: () => void }): JSX
     window.api.logger.warn(`GENERATED A ${typeOfWallet} WALLET!!!`)
 
     const pair = await window.api.crypto.generateWallet('fromMnemonic')
-    console.log('PAIR:', pair)
 
     if (pair && pair.length > 0) {
       const wallet = pair[0]
-      const seed = wallet.seed || wallet.mnemonic || '' // 👈 fallback
-      if (seed) setEvmSeed(seed)
+      const phrase = wallet.phrase || wallet.mnemonic || '' // 👈 fallback
+      if (phrase) setEvmSeed(phrase)
       else console.warn('Seed not found in generated wallet:', wallet)
     }
   }

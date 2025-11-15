@@ -4,7 +4,8 @@ import {
   generateMnemonic,
   english,
   generatePrivateKey,
-  privateKeyToAccount
+  privateKeyToAccount,
+  mnemonicToAccount
 } from 'viem/accounts'
 import { HDNodeWallet } from 'ethers'
 import { IWalletPair } from './interfaces'
@@ -42,12 +43,11 @@ class Crypto {
     const wallets: IWalletPair[] = []
 
     if (mode === 'fromMnemonic') {
-      const seed = generateMnemonic(english)
-      console.log(seed)
+      const phrase = generateMnemonic(english)
 
       for (let i = 0; i < countOfWallet; i++) {
-        const wallet = HDNodeWallet.fromPhrase(seed, `m/44'/60'/0'/0/${i}`)
-        wallets.push({ seed, privatekey: wallet.privateKey, address: wallet.address })
+        const wallet = HDNodeWallet.fromPhrase(phrase, `m/44'/60'/0'/0/${i}`)
+        wallets.push({ phrase, privatekey: wallet.privateKey, address: wallet.address })
       }
     } else {
       for (let i = 0; i < countOfWallet; i++) {
@@ -56,11 +56,13 @@ class Crypto {
         wallets.push({ privatekey, address: wallet.address })
       }
     }
-
     return wallets
+  }
+
+  getWalletFromMnemonic(mnemoinc: string) {
+    return mnemonicToAccount(mnemoinc)
   }
 }
 
 const crypto = new Crypto(process.env.ALCHEMYAPI)
-console.log(crypto.generateWallet('fromMnemonic', 15))
 export default crypto

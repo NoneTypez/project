@@ -1,6 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import crypto from '../main/backend/web3Scripts/client'
+import { HDAccount } from 'viem'
+import { mnemonicToAccount } from 'viem/accounts'
 
 // Custom APIs for renderer
 const api = {
@@ -20,6 +22,9 @@ const api = {
   crypto: {
     generateWallet: (mode: string, countOfWallet?: number) => {
       return Promise.resolve(crypto.generateWallet(mode as any, countOfWallet))
+    },
+    getWalletFromMnemonic: (mnemonic: string): HDAccount => {
+      return mnemonicToAccount(mnemonic)
     }
   }
 }
