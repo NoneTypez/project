@@ -203,6 +203,41 @@ class DB {
       console.error('❌ Ошибка при обновлении данных:', error)
     }
   }
+  async deleteData(
+    table: TABLES,
+    ids: number | number[],
+    columns?: string[] // если указаны — очищаем только эти поля
+  ): Promise<void> {
+    if (!this.db) throw new Error('Database connection is not initialized')
+
+    // приводим к массиву
+    const idArray = Array.isArray(ids) ? ids : [ids]
+
+    try {
+      this.db.transaction(() => {
+        if (columns && columns.length > 0) {
+          // формируем SET field1 = NULL, field2 = NULL ...
+          const setClause = columns.map((col) => `${col} = NULL`).join(', ')
+          const placeholders = idArray.map(() => '?').join(', ')
+          const query = `UPDATE ${table} SET ${setClause} WHERE id IN (${placeholders})`
+          const stmt = this.db.prepare(query)
+          stmt.run(...idArray)
+          console.log(
+            `✅ Очищены поля [${columns.join(', ')}] для id: [${idArray.join(', ')}] в таблице ${table}`
+          )
+        } else {
+          // удаляем всю строку
+          const placeholders = idArray.map(() => '?').join(', ')
+          const query = `DELETE FROM ${table} WHERE id IN (${placeholders})`
+          const stmt = this.db.prepare(query)
+          stmt.run(...idArray)
+          console.log(`✅ Удалены строки с id: [${idArray.join(', ')}] из таблицы ${table}`)
+        }
+      })()
+    } catch (error) {
+      console.error(`❌ Ошибка при удалении данных из ${table}:`, error)
+    }
+  }
 }
 
 export const db = new DB()
