@@ -108,7 +108,7 @@ ipcMain.on('window:minimize', (event) => {
 
 ipcMain.on('window:maximize', (event) => {
   const win = BrowserWindow.fromWebContents(event.sender)
-  win?.isMaximized() ? win.unmaximize() : win.maximize()
+  win?.isMaximized() ? win.unmaximize() : win?.maximize()
 })
 
 ipcMain.on('window:close', (event) => {
@@ -121,8 +121,8 @@ ipcMain.handle('get-log-file', () => {
 })
 export { watchLogFile }
 
-ipcMain.handle('logger:log', (_, message: string) => {
-  logger.log('info', message)
-})
+// ipcMain.handle('logger:log', (_, message: string) => {
+//   logger.log('info', message)
+// })
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

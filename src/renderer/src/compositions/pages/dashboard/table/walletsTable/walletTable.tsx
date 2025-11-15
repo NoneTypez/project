@@ -79,23 +79,6 @@ function WalletTable(): JSX.Element {
           },
           '& .MuiTableSortLabel-root': {
             color: '#929292ff !important'
-          },
-          /* Стили для кастомного скроллбара */
-          '&::-webkit-scrollbar': {
-            width: '12px', // Ширина вертикального скроллбара
-            height: '12px' // Высота горизонтального скроллбара
-          },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: '#2c2c2c', // Цвет фона области скроллбара
-            borderRadius: '10px' // Скругление углов области скроллбара
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#1885b7ff', // Цвет ползунка
-            borderRadius: '10px',
-            border: '3px solid #1a1a1a' // Граница вокруг ползунка
-          },
-          '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#42a4c5ff' // Цвет ползунка при наведении
           }
         }}
       >

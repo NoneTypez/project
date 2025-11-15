@@ -4,6 +4,30 @@
   letter-spacing: 1px;
   word-spacing: 2px;
   font-variant: small-caps;
+  /* Вертикальный и горизонтальный скроллбар */
+::-webkit-scrollbar {
+  width: 12px;   /* ширина вертикального скроллбара */
+  height: 12px;  /* высота горизонтального скроллбара */
+}
+
+/* Фон области скроллбара */
+::-webkit-scrollbar-track {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+}
+
+/* Ползунок */
+::-webkit-scrollbar-thumb {
+  background-color: #1885b7ff;
+  border-radius: 10px;
+  border: 3px solid #1a1a1a; /* граница вокруг ползунка */
+}
+
+/* Ползунок при наведении */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #42a4c5ff;
+}
+
 }
 
 .titlebar {
