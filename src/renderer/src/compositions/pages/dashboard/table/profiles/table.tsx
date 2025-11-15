@@ -60,103 +60,114 @@ export default function Table(): JSX.Element {
   }
 
   return (
-    <TableContainer
-      component={Paper}
-      className={cn(styles.main, 'scrollbar-custom')}
-      sx={{
-        height: '100%',
+    <>
+      <Button
+        variant="outlined"
+        color="error"
+        sx={{ position: 'absolute', top: 41, left: 955, width: 100 }}
+        disabled={selected.length === 0} // ✅ кнопка неактивна если нет выделенных
+      >
+        УДАЛИТЬ
+      </Button>
 
-        maxHeight: 'calc(100vh - 120px)', // динамически ограничиваем
-        overflow: 'auto',
-        background:
-          'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
-        '& .MuiTableCell-root': {
-          color: '#929292ff',
-          borderBottom: '1px solid #444'
-        },
-        '& .MuiTable-root': {
-          tableLayout: 'fixed' // фиксированная ширина колонок
-        },
-        '& .MuiTableHead-root .MuiTableCell-root': {
-          fontWeight: 'bold',
-          backgroundColor: '#1a1a1abf' // чтобы фон заголовка был фиксирован, а не "прозрачный"
-        },
-        '& .MuiTableSortLabel-root .MuiTableSortLabel-icon': {
-          color: '#aaa !important'
-        },
-        '& .MuiTableSortLabel-root.Mui-active': {
-          color: '#929292ff !important'
-        },
-        '& .MuiTableSortLabel-root:hover': {
-          color: '#929292ff !important'
-        },
-        '& .MuiTableSortLabel-root': {
-          color: '#929292ff !important'
-        },
-        /* Стили для кастомного скроллбара */
-        '&::-webkit-scrollbar': {
-          width: '12px', // Ширина вертикального скроллбара
-          height: '12px' // Высота горизонтального скроллбара
-        },
-        '&::-webkit-scrollbar-track': {
-          backgroundColor: '#2c2c2c', // Цвет фона области скроллбара
-          borderRadius: '10px' // Скругление углов области скроллбара
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#1885b7ff', // Цвет ползунка
-          borderRadius: '10px',
-          border: '3px solid #1a1a1a' // Граница вокруг ползунка
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: '#42a4c5ff' // Цвет ползунка при наведении
-        }
-      }}
-    >
-      <MuiTable stickyHeader>
-        <TableHeaders
-          isAllChecked={isAllChecked}
-          onToggleAll={handleToggleAll}
-          onSort={handleSort}
-        />
+      <TableContainer
+        component={Paper}
+        className={cn(styles.main, 'scrollbar-custom')}
+        sx={{
+          height: '100%',
 
-        <TableBody>
-          {data.map((row, index) => (
-            <TableRow key={`${row.id}-${index}`} hover>
-              <TableCell padding="checkbox" align="center">
-                <Checkbox
-                  checked={selected.includes(row.id)}
-                  onChange={() => handleToggleRow(row.id)}
-                  sx={{
-                    color: '#404040ff', // цвет галочки по умолчанию
-                    '&.Mui-checked': {
-                      color: '#2088b8ff' // цвет галочки, когда включен
-                    },
-                    transition: 'all 0.3s ease',
-                    '& .MuiSvgIcon-root': {
-                      transition: 'all 0.3s ease'
-                    }
-                  }}
-                />
-              </TableCell>
+          maxHeight: 'calc(100vh - 120px)', // динамически ограничиваем
+          overflow: 'auto',
+          background:
+            'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
+          '& .MuiTableCell-root': {
+            color: '#929292ff',
+            borderBottom: '1px solid #444'
+          },
+          '& .MuiTable-root': {
+            tableLayout: 'fixed' // фиксированная ширина колонок
+          },
+          '& .MuiTableHead-root .MuiTableCell-root': {
+            fontWeight: 'bold',
+            backgroundColor: '#1a1a1abf' // чтобы фон заголовка был фиксирован, а не "прозрачный"
+          },
+          '& .MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+            color: '#aaa !important'
+          },
+          '& .MuiTableSortLabel-root.Mui-active': {
+            color: '#929292ff !important'
+          },
+          '& .MuiTableSortLabel-root:hover': {
+            color: '#929292ff !important'
+          },
+          '& .MuiTableSortLabel-root': {
+            color: '#929292ff !important'
+          },
+          /* Стили для кастомного скроллбара */
+          '&::-webkit-scrollbar': {
+            width: '12px', // Ширина вертикального скроллбара
+            height: '12px' // Высота горизонтального скроллбара
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#2c2c2c', // Цвет фона области скроллбара
+            borderRadius: '10px' // Скругление углов области скроллбара
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#1885b7ff', // Цвет ползунка
+            borderRadius: '10px',
+            border: '3px solid #1a1a1a' // Граница вокруг ползунка
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#42a4c5ff' // Цвет ползунка при наведении
+          }
+        }}
+      >
+        <MuiTable stickyHeader>
+          <TableHeaders
+            isAllChecked={isAllChecked}
+            onToggleAll={handleToggleAll}
+            onSort={handleSort}
+          />
 
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.profileName}</TableCell>
-              <TableCell>{row.balance}</TableCell>
-              <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.twitter}</TableCell>
-              <TableCell align="center">{row.discord}</TableCell>
-              <TableCell align="center">{row.telegram}</TableCell>
-              <TableCell align="center">{row.telephone}</TableCell>
-              <TableCell align="center">{row.github}</TableCell>
-              <TableCell align="center" sx={{ paddingTop: 0, paddingBottom: 0 }}>
-                <Button variant="text" color="inherit" sx={{ paddingTop: 0, paddingBottom: 0 }}>
-                  ...
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </MuiTable>
-    </TableContainer>
+          <TableBody>
+            {data.map((row, index) => (
+              <TableRow key={`${row.id}-${index}`} hover>
+                <TableCell padding="checkbox" align="center">
+                  <Checkbox
+                    checked={selected.includes(row.id)}
+                    onChange={() => handleToggleRow(row.id)}
+                    sx={{
+                      color: '#404040ff', // цвет галочки по умолчанию
+                      '&.Mui-checked': {
+                        color: '#2088b8ff' // цвет галочки, когда включен
+                      },
+                      transition: 'all 0.3s ease',
+                      '& .MuiSvgIcon-root': {
+                        transition: 'all 0.3s ease'
+                      }
+                    }}
+                  />
+                </TableCell>
+
+                <TableCell>{row.id}</TableCell>
+                <TableCell>{row.profileName}</TableCell>
+                <TableCell>{row.balance}</TableCell>
+                <TableCell align="center">{row.email}</TableCell>
+                <TableCell align="center">{row.twitter}</TableCell>
+                <TableCell align="center">{row.discord}</TableCell>
+                <TableCell align="center">{row.telegram}</TableCell>
+                <TableCell align="center">{row.telephone}</TableCell>
+                <TableCell align="center">{row.github}</TableCell>
+                <TableCell align="center" sx={{ paddingTop: 0, paddingBottom: 0 }}>
+                  <Button variant="text" color="inherit" sx={{ paddingTop: 0, paddingBottom: 0 }}>
+                    ...
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </MuiTable>
+      </TableContainer>
+    </>
   )
 }

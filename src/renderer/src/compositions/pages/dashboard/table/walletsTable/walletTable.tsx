@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { JSX, useState } from 'react'
-import { Table, TableContainer, Paper } from '@mui/material'
+import { Table, TableContainer, Paper, Button } from '@mui/material'
 import { EVMWalletsData } from '@renderer/models'
 import WalletTableHeaders from './walletTableHeaders'
 import WalletTableBody from './walletTableBody'
@@ -42,67 +42,77 @@ function WalletTable(): JSX.Element {
   }
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        maxHeight: '683px',
-        overflow: 'auto',
-        background:
-          'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
-
-        '& .MuiTableCell-root': {
-          color: '#929292ff',
-          borderBottom: '1px solid #444'
-        },
-        '& .MuiTableHead-root .MuiTableCell-root': {
-          fontWeight: 'bold',
+    <>
+      <Button
+        variant="outlined"
+        color="error"
+        sx={{ position: 'absolute', top: 41, left: 955, width: 100 }}
+        disabled={!Object.values(checkedItems).some((v) => v)} // ✅ неактивна если нет выбранных
+      >
+        УДАЛИТЬ
+      </Button>
+      <TableContainer
+        component={Paper}
+        sx={{
+          maxHeight: '683px',
+          overflow: 'auto',
           background:
-            'linear-gradient(90deg,rgba(26, 26, 26, 0.69) 0%, rgba(26, 26, 26, 0.87) 50%, rgba(26, 26, 26, 0.68) 100%);' // чтобы фон заголовка был фиксирован, а не "прозрачный"
-        },
-        '& .MuiTableSortLabel-root .MuiTableSortLabel-icon': {
-          color: '#aaa !important'
-        },
-        '& .MuiTableSortLabel-root.Mui-active': {
-          color: '#929292ff !important'
-        },
-        '& .MuiTableSortLabel-root:hover': {
-          color: '#929292ff !important'
-        },
-        '& .MuiTableSortLabel-root': {
-          color: '#929292ff !important'
-        },
-        /* Стили для кастомного скроллбара */
-        '&::-webkit-scrollbar': {
-          width: '12px', // Ширина вертикального скроллбара
-          height: '12px' // Высота горизонтального скроллбара
-        },
-        '&::-webkit-scrollbar-track': {
-          backgroundColor: '#2c2c2c', // Цвет фона области скроллбара
-          borderRadius: '10px' // Скругление углов области скроллбара
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#1885b7ff', // Цвет ползунка
-          borderRadius: '10px',
-          border: '3px solid #1a1a1a' // Граница вокруг ползунка
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: '#42a4c5ff' // Цвет ползунка при наведении
-        }
-      }}
-    >
-      <Table stickyHeader>
-        <WalletTableHeaders
-          isAllChecked={isAllChecked}
-          onToggleAll={handleToggleAll}
-          onSort={handleSort}
-        />
-        <WalletTableBody
-          data={wallets}
-          checkedItems={checkedItems}
-          onToggleItem={handleToggleItem}
-        />
-      </Table>
-    </TableContainer>
+            'linear-gradient(to right, transparent 0%, #1a1a1a50 30%, #1a1a1a50 70%, transparent 100%)',
+
+          '& .MuiTableCell-root': {
+            color: '#929292ff',
+            borderBottom: '1px solid #444'
+          },
+          '& .MuiTableHead-root .MuiTableCell-root': {
+            fontWeight: 'bold',
+            background:
+              'linear-gradient(90deg,rgba(26, 26, 26, 0.69) 0%, rgba(26, 26, 26, 0.87) 50%, rgba(26, 26, 26, 0.68) 100%);' // чтобы фон заголовка был фиксирован, а не "прозрачный"
+          },
+          '& .MuiTableSortLabel-root .MuiTableSortLabel-icon': {
+            color: '#aaa !important'
+          },
+          '& .MuiTableSortLabel-root.Mui-active': {
+            color: '#929292ff !important'
+          },
+          '& .MuiTableSortLabel-root:hover': {
+            color: '#929292ff !important'
+          },
+          '& .MuiTableSortLabel-root': {
+            color: '#929292ff !important'
+          },
+          /* Стили для кастомного скроллбара */
+          '&::-webkit-scrollbar': {
+            width: '12px', // Ширина вертикального скроллбара
+            height: '12px' // Высота горизонтального скроллбара
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#2c2c2c', // Цвет фона области скроллбара
+            borderRadius: '10px' // Скругление углов области скроллбара
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#1885b7ff', // Цвет ползунка
+            borderRadius: '10px',
+            border: '3px solid #1a1a1a' // Граница вокруг ползунка
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#42a4c5ff' // Цвет ползунка при наведении
+          }
+        }}
+      >
+        <Table stickyHeader>
+          <WalletTableHeaders
+            isAllChecked={isAllChecked}
+            onToggleAll={handleToggleAll}
+            onSort={handleSort}
+          />
+          <WalletTableBody
+            data={wallets}
+            checkedItems={checkedItems}
+            onToggleItem={handleToggleItem}
+          />
+        </Table>
+      </TableContainer>
+    </>
   )
 }
 
