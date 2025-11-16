@@ -59,7 +59,6 @@ export default function AddProfileTab({ onClose }: { onClose: () => void }): JSX
   }
 
   const handleAdd = (): void => {
-    console.log('Добавляем...')
     onClose()
   }
 

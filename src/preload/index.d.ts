@@ -47,7 +47,7 @@ declare global {
         deleteData: (table: TABLES, ids: number | number[], columns?: string[]) => Promise<void>
       }
       crypto: {
-        generateWallet: (mode: string, countOfWallet?: number) => Promise<IWalletPair[]>
+        generateWallet: (mode: string, countOfWallet?: number) => IWallet[]
         getWalletFromMnemonic: (mnemonic: string) => IWalletPair
       }
     }

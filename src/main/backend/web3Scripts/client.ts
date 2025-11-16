@@ -44,10 +44,10 @@ class Crypto {
     return '0x' + Buffer.from(unit8PK).toString('hex')
   }
 
-  generateWallet(mode: 'fromMnemonic' | 'fromPrivateKey', countOfWallet: number = 1): IWallet[] {
+  generateWallet(mode: 'withMnemonic' | 'withoutMnemonic', countOfWallet: number = 1): IWallet[] {
     const wallets: IWallet[] = []
 
-    if (mode === 'fromMnemonic') {
+    if (mode === 'withMnemonic') {
       const phrase = generateMnemonic(english)
 
       for (let i = 0; i < countOfWallet; i++) {

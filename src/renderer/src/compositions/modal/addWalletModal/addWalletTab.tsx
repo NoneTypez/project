@@ -22,7 +22,11 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
   const [loadingAddress, setLoadingAddress] = useState(false)
   const [wallet, setWallet] = useState({ phrase: '', privateKey: '', address: '' })
 
-  const handleAdd = () => {
+  const handleAdd = (count: number = 1) => {
+    if (count > 1) {
+      const wallets = window.api.crypto.generateWallet('withMnemonic', count)
+      window.api.db.insertWalletData('evm_wallets', wallets)
+    }
     window.api.db.insertWalletData('evm_wallets', [
       { phrase: wallet.phrase, privateKey: wallet.privateKey, address: wallet.address }
     ])
@@ -215,7 +219,9 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
         <Button
           variant="outlined"
           sx={{ width: 130 }}
-          onClick={handleAdd}
+          onClick={() => {
+            handleAdd(+count)
+          }}
           disabled={(multiple && (countError || !count)) || !address} // ✅ блокировка кнопки при ошибке
         >
           ДОБАВИТЬ
