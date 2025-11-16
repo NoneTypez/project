@@ -30,23 +30,14 @@ const api = {
       return Promise.resolve(crypto.getWalletFromMnemonic(mnemonic))
     }
   }
-
   // db: {
-  //   selectData: (from: TABLES | '*') => {
-  //     return db.selectData(from)
-  //   },
-  //   insertProfileData: (inputData: IProfile) => {
-  //     return db.insertProfileData(inputData)
-  //   },
-  //   insertWalletData: (tableName: TABLES, inputData: IWallet[]) => {
-  //     return db.insertWalletData(tableName, inputData)
-  //   },
-  //   update: (inTable: TABLES, id: number, updateData: Partial<IProfile | IWallet>) => {
-  //     return db.update(inTable, id, updateData)
-  //   },
-  //   deleteData: (table: TABLES, ids: number | number[], columns?: string[]) => {
-  //     return db.deleteData(table, ids, columns)
-  //   }
+  //   selectData: (table: TABLES | '*') => db.selectData(table),
+  //   insertProfileData: (data: IProfile) => db.insertProfileData(data),
+  //   insertWalletData: (table: TABLES, data: IWallet[]) => db.insertWalletData(table, data),
+  //   update: (table: TABLES, id: number, data: Partial<IProfile | IWallet>) =>
+  //     db.update(table, id, data),
+  //   deleteData: (table: TABLES, ids: number | number[], columns?: string[]) =>
+  //     db.deleteData(table, ids, columns)
   // }
 }
 

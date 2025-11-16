@@ -9,6 +9,7 @@ import {
 } from 'viem/accounts'
 import { HDNodeWallet } from 'ethers'
 import { IWallet } from '../db/db_types'
+import { validateMnemonic } from 'bip39'
 
 class Crypto {
   alchemyAPI: string
@@ -63,10 +64,14 @@ class Crypto {
     return wallets
   }
 
-  getWalletFromMnemonic(mnemoinc: string): IWallet {
-    const account = mnemonicToAccount(mnemoinc)
+  getWalletFromMnemonic(mnemonic: string): IWallet {
+    if (!validateMnemonic(mnemonic)) {
+      throw new Error('Invalid mnemonic phrase')
+    }
+    console.log(`PHRASE ${mnemonic}   is VALID`)
+    const account = mnemonicToAccount(mnemonic)
     const result = {
-      phrase: mnemoinc,
+      phrase: mnemonic,
       privateKey: this._getPrivateKeyFromUnit8(account.getHdKey().privateKey),
       address: account.address
     }

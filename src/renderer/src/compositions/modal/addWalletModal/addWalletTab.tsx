@@ -32,32 +32,30 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
     onClose()
   }
 
-  const fetchAddress = async (mnemonicValue: string) => {
-    try {
-      setLoadingAddress(true)
-      setAddress('')
+  const handleMnemonicChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim()
+    setMnemonic(value)
 
-      // Генерация кошелька через новый API
-      const wallet = await window.api.crypto.getWalletFromMnemonic(mnemonicValue)
+    if (!value) {
+      setAddress('')
+      return
+    }
+
+    setLoadingAddress(true)
+
+    try {
+      // Получаем кошелёк (ошибка внутри = invalid mnemonic)
+      const wallet = await window.api.crypto.getWalletFromMnemonic(value)
+
+      // Если успех — заполняем
       setWallet(wallet)
       setAddress(wallet.address)
-    } catch (e) {
-      console.error('Ошибка получения адреса:', e)
+    } catch (err) {
+      // Любая ошибка — считаем мнемонику неверной
+      console.warn('Invalid mnemonic:', err)
       setAddress('')
     } finally {
       setLoadingAddress(false)
-    }
-  }
-
-  const handleMnemonicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setMnemonic(value)
-
-    const words = value.trim().split(/\s+/)
-    if (words.length >= 12) {
-      fetchAddress(value)
-    } else {
-      setAddress('')
     }
   }
 
