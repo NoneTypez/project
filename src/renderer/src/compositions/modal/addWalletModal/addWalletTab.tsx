@@ -22,11 +22,9 @@ export default function AddWalletTab({ onClose }: { onClose: () => void }) {
   const [loadingAddress, setLoadingAddress] = useState(false)
   const [wallet, setWallet] = useState({ phrase: '', privateKey: '', address: '' })
 
-  const handleAdd = async () => {
-    await window.api.db.insertWalletData('evm_wallets', [
-      wallet.phrase,
-      wallet.privateKey,
-      wallet.address
+  const handleAdd = () => {
+    window.api.db.insertWalletData('evm_wallets', [
+      { phrase: wallet.phrase, privateKey: wallet.privateKey, address: wallet.address }
     ])
 
     onClose()

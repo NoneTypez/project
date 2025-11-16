@@ -68,14 +68,12 @@ class Crypto {
     if (!validateMnemonic(mnemonic)) {
       throw new Error('Invalid mnemonic phrase')
     }
-    console.log(`PHRASE ${mnemonic}   is VALID`)
     const account = mnemonicToAccount(mnemonic)
     const result = {
       phrase: mnemonic,
       privateKey: this._getPrivateKeyFromUnit8(account.getHdKey().privateKey),
       address: account.address
     }
-    console.log(result)
     return result
   }
 }

@@ -1,5 +1,5 @@
 import { app } from 'electron'
-import Database from 'better-sqlite3'
+import Database, { Database as DBType } from 'better-sqlite3'
 import { decrypt, encrypt } from './crypt'
 import path from 'path'
 import { IProfile, IWallet, stmtsForInsert, TABLES } from './db_types'
@@ -15,25 +15,25 @@ import {
 import logger from '../logger'
 
 class DB {
-  dbPath: string
-  db: Database.Database | null = null
+  dbPath = ''
+  db!: DBType
 
-  constructor() {
-    this.dbPath = ''
-    app.whenReady().then(() => {
-      this.dbPath = path.join(app.getPath('userData'), 'DATABASE.db')
-      this.db = new Database(this.dbPath)
-      this.createTables()
-      logger.log('info', 'CREATE A DATABASE')
-    })
+  init() {
+    app.whenReady()
+    this.dbPath = path.join(app.getPath('userData'), 'DATABASE.db')
+    this.db = new Database(this.dbPath)
+    this.createTables()
   }
 
   private createTables(): void {
-    if (!this.db) return
-    createTableQueries.forEach((data) => this.db?.prepare(data).run())
+    if (!this.db) throw new Error('DB not initialized')
+
+    for (const q of createTableQueries) {
+      this.db.prepare(q).run()
+    }
   }
 
-  async __DROPTABLES(): Promise<void> {
+  __DROPTABLES(): void {
     if (!this.db) return
 
     const queries = Object.values(TABLES).map((table) => `DROP TABLE IF EXISTS ${table}`)
@@ -53,7 +53,7 @@ class DB {
     }
   }
 
-  async selectData(from: TABLES | '*'): Promise<{
+  selectData(from: TABLES | '*'): {
     profiles?: IProfile[]
     projects?: unknown[]
     fees?: unknown[]
@@ -63,7 +63,7 @@ class DB {
     btc_wallets?: IWallet[]
     atom_wallets?: IWallet[]
     ton_wallets?: IWallet[]
-  }> {
+  } {
     if (!this.db) throw new Error('Database connection is not initialized')
 
     // Результат, который будет возвращён
@@ -119,7 +119,7 @@ class DB {
     }
   }
 
-  async insertProfileData(inputData: IProfile): Promise<void> {
+  insertProfileData(inputData: IProfile): void {
     if (!this.db) throw new Error('Database connection is not initialized')
 
     const evmData = createEmvDataToInsert(inputData.evm_seed)
@@ -153,34 +153,49 @@ class DB {
     }
   }
 
-  async insertWalletData(tableName: TABLES, inputData: IWallet[]): Promise<void> {
+  insertWalletData(tableName: TABLES, inputData: IWallet[]): void {
     if (!this.db) throw new Error('Database connection is not initialized')
 
     const query = this.db.prepare(
-      `INSERT INTO ${tableName} (seed, privatekey, address) VALUES (@seed, @privatekey, @address)`
+      `INSERT INTO ${tableName} (phrase, privateKey, address)
+        VALUES (@phrase, @privateKey, @address)`
     )
 
     try {
-      this.db.transaction(() => {
-        for (const walletData of inputData) {
+      const insertTx = this.db.transaction((wallets: IWallet[]) => {
+        for (const wallet of wallets) {
+          // 🔥 Гарантируем, что wallet — это объект
+          if (typeof wallet !== 'object' || wallet === null) {
+            console.warn('Skipping invalid wallet:', wallet)
+            continue
+          }
+
+          const phrase = String(wallet.phrase ?? '').trim()
+          const privateKey = String(wallet.privateKey ?? '').trim()
+          const address = String(wallet.address ?? '').trim()
+
+          if (!privateKey || !address) {
+            console.warn('Skipping incomplete wallet:', wallet)
+            continue
+          }
+
           query.run({
-            seed: `ENC:${encrypt(walletData.phrase ?? '')}`,
-            privatekey: `ENC:${encrypt(walletData.privateKey)}`,
-            address: `ENC:${encrypt(walletData.address)}`
+            phrase: phrase ? `ENC:${encrypt(phrase, process.env.SECRET ?? '')}` : null,
+            privateKey: `ENC:${encrypt(privateKey, process.env.SECRET ?? '')}`,
+            address: `ENC:${encrypt(address, process.env.SECRET ?? '')}`
           })
         }
-      })()
-      console.log(`✅ Данные успешно вставлены в ${tableName}`)
+      })
+
+      insertTx(inputData)
+
+      logger.log('info', `Inserted wallets: ${JSON.stringify(inputData, null, 2)}`)
     } catch (error) {
-      console.error(`❌ Ошибка при вставке данных в ${tableName}:`, error)
+      logger.log('error', `Insert failed: ${error}`)
     }
   }
 
-  async update(
-    inTable: TABLES,
-    id: number,
-    updateData: Partial<IProfile | IWallet>
-  ): Promise<void> {
+  update(inTable: TABLES, id: number, updateData: Partial<IProfile | IWallet>): void {
     if (!this.db) throw new Error('Database connection is not initialized')
 
     // Генерация строки SET для обновления
@@ -203,11 +218,11 @@ class DB {
       console.error('❌ Ошибка при обновлении данных:', error)
     }
   }
-  async deleteData(
+  deleteData(
     table: TABLES,
     ids: number | number[],
     columns?: string[] // если указаны — очищаем только эти поля
-  ): Promise<void> {
+  ): void {
     if (!this.db) throw new Error('Database connection is not initialized')
 
     // приводим к массиву
@@ -241,3 +256,4 @@ class DB {
 }
 
 export const db = new DB()
+db.init()

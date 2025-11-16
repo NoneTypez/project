@@ -11,7 +11,6 @@ class Logger {
     this.mainWindow = mainWindow
     // Используем корневую директорию проекта
     this.logFilePath = join(app.getPath('userData'), 'app.log')
-    console.log(this.logFilePath)
 
     // Создаём log-файл, если его нет
     if (!fs.existsSync(this.logFilePath)) {
@@ -31,6 +30,11 @@ class Logger {
 
     // Отправляем лог на фронтенд
     this.mainWindow?.webContents.send('log-message', { level, message, timestamp })
+  }
+
+  getLogFileContent(): string {
+    if (!fs.existsSync(this.logFilePath)) return ''
+    return fs.readFileSync(this.logFilePath, 'utf-8')
   }
 
   setupIPC(): void {

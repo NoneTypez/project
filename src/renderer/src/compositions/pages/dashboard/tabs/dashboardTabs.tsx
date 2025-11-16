@@ -71,7 +71,6 @@ export default function DashboardTabs(): JSX.Element {
 
   const [open, setOpen] = React.useState(false)
   const handleOpen = (): void => {
-    window.api.logger.log('DrINDOS')
     setOpen(true)
   }
   const handleClose = (): void => setOpen(false)

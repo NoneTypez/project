@@ -48,8 +48,6 @@ const generateButtonStyle = {
 export default function AddProfileTab({ onClose }: { onClose: () => void }): JSX.Element {
   const [evmSeed, setEvmSeed] = useState('')
   const handleGenerate = async (typeOfWallet: string): Promise<void> => {
-    window.api.logger.warn(`GENERATED A ${typeOfWallet} WALLET!!!`)
-
     const pair = await window.api.crypto.generateWallet('fromMnemonic')
 
     if (pair && pair.length > 0) {

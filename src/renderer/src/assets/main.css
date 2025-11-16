@@ -1,9 +1,11 @@
 * {
   cursor: default !important;
-  font-family: Arial, Helvetica, sans-serif;
-  letter-spacing: 1px;
-  word-spacing: 2px;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 0.5px;   /* чуть меньше, чтобы не было слишком разреженно */
+  word-spacing: 1px;       /* немного компактнее */
   font-variant: small-caps;
+  line-height: 1.5;        /* добавляет читаемости */
+  font-size: 15px;          /* стандартный комфортный размер */
   /* Вертикальный и горизонтальный скроллбар */
 ::-webkit-scrollbar {
   width: 12px;   /* ширина вертикального скроллбара */

@@ -1,44 +1,40 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import crypto from '../main/backend/web3Scripts/client'
-import { HDAccount } from 'viem'
-import { mnemonicToAccount } from 'viem/accounts'
-import { IProfile, IWallet, TABLES } from '../main/backend/db/db_types'
-import { db } from '../main/backend/db/dbEngine'
 
 // Custom APIs for renderer
 const api = {
   logger: {
-    log: (message: string) => ipcRenderer.invoke('log-info', message),
-    info: (message: string) => ipcRenderer.invoke('log-info', message),
-    warn: (message: string) => ipcRenderer.invoke('log-warn', message),
-    error: (message: string) => ipcRenderer.invoke('log-error', message),
-    success: (message: string) => ipcRenderer.invoke('log-success', message),
+    log: (message) => ipcRenderer.invoke('log-info', message),
+    info: (message) => ipcRenderer.invoke('log-info', message),
+    warn: (message) => ipcRenderer.invoke('log-warn', message),
+    error: (message) => ipcRenderer.invoke('log-error', message),
+    success: (message) => ipcRenderer.invoke('log-success', message),
 
-    // 🔥 вот это нужно реально прописать тут
     getFile: () => ipcRenderer.invoke('get-log-file'),
-    onUpdate: (callback: (content: string) => void) => {
+    onUpdate: (callback) => {
       ipcRenderer.on('log-file-updated', (_, content) => callback(content))
     }
   },
+
   crypto: {
-    generateWallet: (mode: string, count?: number): Promise<IWallet[]> => {
-      // Вызываем локальную функцию crypto.generateWallet, возвращаем как Promise
-      return Promise.resolve(crypto.generateWallet(mode as any, count))
-    },
-    getWalletFromMnemonic: (mnemonic: string): Promise<IWallet> => {
-      return Promise.resolve(crypto.getWalletFromMnemonic(mnemonic))
-    }
+    generateWallet: (mode, count) => ipcRenderer.invoke('crypto:generateWallet', { mode, count }),
+
+    getWalletFromMnemonic: (mnemonic) =>
+      ipcRenderer.invoke('crypto:getWalletFromMnemonic', mnemonic)
+  },
+
+  db: {
+    selectData: (table) => ipcRenderer.invoke('db:selectData', table),
+
+    insertProfileData: (data) => ipcRenderer.invoke('db:insertProfileData', data),
+
+    insertWalletData: (table, data) => ipcRenderer.invoke('db:insertWalletData', { table, data }),
+
+    update: (table, id, data) => ipcRenderer.invoke('db:update', { table, id, data }),
+
+    deleteData: (table, ids, columns) =>
+      ipcRenderer.invoke('db:deleteData', { table, ids, columns })
   }
-  // db: {
-  //   selectData: (table: TABLES | '*') => db.selectData(table),
-  //   insertProfileData: (data: IProfile) => db.insertProfileData(data),
-  //   insertWalletData: (table: TABLES, data: IWallet[]) => db.insertWalletData(table, data),
-  //   update: (table: TABLES, id: number, data: Partial<IProfile | IWallet>) =>
-  //     db.update(table, id, data),
-  //   deleteData: (table: TABLES, ids: number | number[], columns?: string[]) =>
-  //     db.deleteData(table, ids, columns)
-  // }
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -20,8 +20,8 @@ const PROFILES = `
 const EVM_WALLETS = `
   CREATE TABLE IF NOT EXISTS 'evm_wallets' (
 	'id' integer primary key NOT NULL UNIQUE,
-	'seed' TEXT NOT NULL,
-	'privatekey' TEXT NOT NULL,
+	'phrase' TEXT NOT NULL,
+	'privateKey' TEXT NOT NULL,
 	'address' TEXT NOT NULL
 )
 `
@@ -29,8 +29,8 @@ const EVM_WALLETS = `
 const SOL_WALLETS = `
   CREATE TABLE IF NOT EXISTS 'sol_wallets' (
 	'id' integer primary key NOT NULL UNIQUE,
-	'seed' TEXT NOT NULL,
-	'privatekey' TEXT NOT NULL,
+	'phrase' TEXT NOT NULL,
+	'privateKey' TEXT NOT NULL,
 	'address' TEXT NOT NULL
 )
 `
@@ -38,8 +38,8 @@ const SOL_WALLETS = `
 const BTC_WALLETS = `
   CREATE TABLE IF NOT EXISTS 'btc_wallets' (
 	'id' integer primary key NOT NULL UNIQUE,
-	'seed' TEXT NOT NULL,
-	'privatekey' TEXT NOT NULL,
+	'phrase' TEXT NOT NULL,
+	'privateKey' TEXT NOT NULL,
 	'address' TEXT NOT NULL
 )
 `
@@ -47,8 +47,8 @@ const BTC_WALLETS = `
 const ATOM_WALLETS = `
   CREATE TABLE IF NOT EXISTS 'atom_wallets' (
 	'id' integer primary key NOT NULL UNIQUE,
-	'seed' TEXT NOT NULL,
-	'privatekey' TEXT NOT NULL,
+	'phrase' TEXT NOT NULL,
+	'privateKey' TEXT NOT NULL,
 	'address' TEXT NOT NULL
 )
 `
@@ -56,8 +56,8 @@ const ATOM_WALLETS = `
 const TON_WALLETS = `
   CREATE TABLE IF NOT EXISTS 'ton_wallets' (
 	'id' integer primary key NOT NULL UNIQUE,
-	'seed' TEXT NOT NULL,
-	'privatekey' TEXT NOT NULL,
+	'phrase' TEXT NOT NULL,
+	'privateKey' TEXT NOT NULL,
 	'address' TEXT NOT NULL
 )
 `
